@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>金融学核心考点交互题库</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]] },
+      chtml: { matchFontHeight: false },
+      startup: { typeset: false }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --paper: #ffffff;
+      --ink: #1f2937;
+      --muted: #667085;
+      --line: #d7dee8;
+      --soft: #eef6f6;
+      --primary: #0f766e;
+      --primary-dark: #0b5d56;
+      --blue: #2563eb;
+      --ok: #0f8a4b;
+      --ok-bg: #e7f6ee;
+      --bad: #c23b2a;
+      --bad-bg: #fdece8;
+      --warn: #b7791f;
+      --warn-bg: #fff7db;
+      --shadow: 0 12px 28px rgba(31, 41, 55, 0.08);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(15, 118, 110, 0.10), transparent 300px),
+        var(--bg);
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(1160px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 26px 0 54px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      padding: 10px 0 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .summary {
+      min-width: 320px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 9px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdff;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .progress {
+      height: 10px;
+      margin-top: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #edf2f7;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--blue));
+      transition: width 180ms ease;
+    }
+
+    .paper-switcher {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .paper-tab {
+      min-height: 76px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--ink);
+      text-align: left;
+      background: var(--paper);
+      box-shadow: 0 8px 18px rgba(31, 41, 55, 0.05);
+      transition: 160ms ease;
+    }
+
+    .paper-tab:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .paper-tab.active {
+      border-color: var(--primary);
+      background: var(--soft);
+      box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.15);
+    }
+
+    .paper-tab strong,
+    .paper-tab span {
+      display: block;
+    }
+
+    .paper-tab strong {
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .paper-tab span {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-bottom: 10px;
+      background: rgba(245, 247, 250, 0.90);
+      backdrop-filter: blur(12px);
+    }
+
+    .tool-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 8px 13px;
+      color: var(--ink);
+      background: var(--paper);
+      transition: 160ms ease;
+    }
+
+    .btn:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    .btn.primary {
+      border-color: var(--primary);
+      color: #fff;
+      background: var(--primary);
+    }
+
+    .btn.primary:hover {
+      color: #fff;
+      filter: brightness(0.96);
+    }
+
+    .btn.active {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      background: var(--soft);
+    }
+
+    .notice {
+      display: none;
+      margin: 12px 0;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: #344054;
+      background: #fff;
+    }
+
+    .notice.show {
+      display: block;
+    }
+
+    .section {
+      margin-top: 24px;
+      scroll-margin-top: 84px;
+    }
+
+    .section-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.25;
+    }
+
+    .section-head span {
+      padding: 3px 9px;
+      border-radius: 999px;
+      color: var(--primary-dark);
+      background: var(--soft);
+      font-size: 13px;
+    }
+
+    .question-list,
+    .subjective-list {
+      display: grid;
+      gap: 13px;
+    }
+
+    .question-card {
+      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 8px 20px rgba(31, 41, 55, 0.05);
+    }
+
+    .question-card.correct {
+      border-color: rgba(15, 138, 75, 0.48);
+      background: linear-gradient(0deg, rgba(231, 246, 238, 0.72), #fff 62%);
+    }
+
+    .question-card.wrong {
+      border-color: rgba(194, 59, 42, 0.48);
+      background: linear-gradient(0deg, rgba(253, 236, 232, 0.72), #fff 62%);
+    }
+
+    .q-top {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .q-no {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      color: #fff;
+      background: #344054;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .q-text {
+      margin: 0;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: #f2f4f7;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tag.easy {
+      color: #0f766e;
+      background: #e6f5f2;
+    }
+
+    .tag.medium {
+      color: #1d4ed8;
+      background: #e8f0ff;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 8px 12px 8px 8px;
+      color: var(--ink);
+      text-align: left;
+      background: #fff;
+      transition: 140ms ease;
+    }
+
+    .option:hover {
+      border-color: var(--primary);
+      background: #fbfffe;
+    }
+
+    .option.selected {
+      border-color: var(--primary);
+      background: var(--soft);
+    }
+
+    .option.right {
+      border-color: var(--ok);
+      background: var(--ok-bg);
+    }
+
+    .option.bad {
+      border-color: var(--bad);
+      background: var(--bad-bg);
+    }
+
+    .option.missed {
+      border-color: var(--ok);
+      background: var(--ok-bg);
+      outline: 2px dashed rgba(15, 138, 75, 0.32);
+      outline-offset: -4px;
+    }
+
+    .option-label {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      color: #344054;
+      background: #eef2f6;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .option-text {
+      overflow-wrap: anywhere;
+    }
+
+    .q-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 12px;
+    }
+
+    .feedback {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .feedback.ok {
+      color: var(--ok);
+      font-weight: 700;
+    }
+
+    .feedback.bad {
+      color: var(--bad);
+      font-weight: 700;
+    }
+
+    .answer-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: #344054;
+      background: #f8fafc;
+    }
+
+    .answer-panel.show {
+      display: block;
+    }
+
+    .answer-panel strong {
+      color: var(--primary-dark);
+    }
+
+    .knowledge {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed #ccd6e2;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .subjective-card textarea {
+      width: 100%;
+      min-height: 118px;
+      resize: vertical;
+      margin-top: 8px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      color: var(--ink);
+      background: #fff;
+    }
+
+    .scoring {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      background: var(--warn-bg);
+      color: #5f450e;
+      font-size: 14px;
+    }
+
+    .empty {
+      padding: 24px;
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+      color: var(--muted);
+      text-align: center;
+      background: #fff;
+    }
+
+    .mini-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 0;
+    }
+
+    .mini-nav a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      text-decoration: none;
+      background: #fff;
+      font-size: 13px;
+    }
+
+    .mini-nav a:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+
+    @media (max-width: 920px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .summary {
+        min-width: 0;
+      }
+
+      .paper-switcher {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 20px, 1160px);
+        padding-top: 18px;
+      }
+
+      .summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .paper-switcher {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar {
+        align-items: stretch;
+      }
+
+      .tool-group,
+      .btn {
+        width: 100%;
+      }
+
+      .q-top {
+        grid-template-columns: auto 1fr;
+      }
+
+      .q-top .tag {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      .question-card {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <h1>金融学核心考点交互题库</h1>
+        <p class="subtitle">3 套期末复习卷，覆盖金融概述、货币信用、利率汇率、金融产品、金融机构、金融市场、中央银行、货币供求、货币政策、金融监管与宏观审慎管理。客观题自动判分，主观题提供参考答案。</p>
+        <nav class="mini-nav" aria-label="题型导航">
+          <a href="#single">单选题</a>
+          <a href="#multiple">多选题</a>
+          <a href="#judge">判断题</a>
+          <a href="#subjective">主观题</a>
+        </nav>
+      </div>
+      <aside class="summary" aria-label="当前套卷进度">
+        <div class="summary-grid">
+          <div class="metric">
+            <strong id="checkedMetric">0/30</strong>
+            <span>已批改</span>
+          </div>
+          <div class="metric">
+            <strong id="scoreMetric">0</strong>
+            <span>客观分</span>
+          </div>
+          <div class="metric">
+            <strong id="rateMetric">0%</strong>
+            <span>正确率</span>
+          </div>
+        </div>
+        <div class="progress" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </aside>
+    </header>
+
+    <section class="paper-switcher" id="paperSwitcher" aria-label="选择套卷"></section>
+
+    <div class="toolbar">
+      <div class="tool-group">
+        <button class="btn primary" type="button" id="gradeAllBtn">一键批改</button>
+        <button class="btn" type="button" id="resetBtn">重新做题</button>
+      </div>
+      <div class="tool-group">
+        <button class="btn" type="button" id="wrongOnlyBtn">只看错题</button>
+        <button class="btn" type="button" id="showAllBtn">显示全部解析</button>
+      </div>
+    </div>
+
+    <div class="notice" id="notice"></div>
+    <div id="content"></div>
+  </main>
+
+  <script>
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    const points = { single: 2, multiple: 2, judge: 1 };
+    const storageKey = "financeQuestionBankStateV1";
+
+    const allPapers = [
+      {
+        id: "paper-1",
+        label: "第一套",
+        title: "基础巩固卷",
+        description: "核心概念、市场分类、央行职能与基础货币供给。",
+        questions: [
+          { id: "p1-s1", type: "single", difficulty: "easy", question: "金融市场按融资期限划分，可以分为：", options: ["一级市场和二级市场", "货币市场和资本市场", "场内市场和场外市场", "现货市场和期货市场"], answer: ["B"], explanation: "按融资期限划分，一年以内短期资金融通为货币市场，中长期资金融通为资本市场。", knowledgePoint: "金融市场分类：货币市场与资本市场" },
+          { id: "p1-s2", type: "single", difficulty: "easy", question: "下列属于货币市场工具的是：", options: ["股票", "长期公司债", "同业拆借", "基金份额"], answer: ["C"], explanation: "同业拆借是金融机构之间短期资金融通，属于典型货币市场工具。", knowledgePoint: "货币市场：同业拆借市场" },
+          { id: "p1-s3", type: "single", difficulty: "easy", question: "我国货币层次中，\\(M1\\) 通常可以表示为：", options: ["流通中现金", "M0 + 活期存款", "M1 + 准货币", "基础货币 + 外汇储备"], answer: ["B"], explanation: "M1 是狭义货币，一般由 M0 加单位活期存款构成。", knowledgePoint: "货币供给层次：M0、M1、M2" },
+          { id: "p1-s4", type: "single", difficulty: "easy", question: "中央银行发行人民币属于：", options: ["资产业务", "负债业务", "中间业务", "表外业务"], answer: ["B"], explanation: "货币发行形成中央银行对社会公众和金融机构的负债。", knowledgePoint: "中央银行业务：货币发行属于负债业务" },
+          { id: "p1-s5", type: "single", difficulty: "easy", question: "注册制的核心是：", options: ["行政审批", "银行担保", "信息披露", "政府定价"], answer: ["C"], explanation: "注册制并不是完全不审核，其核心是以信息披露为中心。", knowledgePoint: "股票发行制度：注册制" },
+          { id: "p1-s6", type: "single", difficulty: "easy", question: "基础货币的常见公式是：", options: ["B = M0 + M2", "B = R + C", "B = M1 - C", "B = L + K"], answer: ["B"], explanation: "基础货币由商业银行准备金 R 和流通中现金 C 构成。", knowledgePoint: "货币供给：基础货币公式" },
+          { id: "p1-s7", type: "single", difficulty: "easy", question: "公开市场操作中，中央银行买入证券通常会：", options: ["回笼基础货币", "投放基础货币", "提高商业银行准备金率", "直接减少居民存款"], answer: ["B"], explanation: "央行买入证券会向市场支付资金，从而增加基础货币和市场流动性。", knowledgePoint: "货币政策工具：公开市场操作" },
+          { id: "p1-s8", type: "single", difficulty: "medium", question: "在经济衰退、通缩压力较大时，常见的政策组合是：", options: ["财政紧缩、货币紧缩", "财政扩张、货币扩张", "财政紧缩、货币扩张", "财政扩张、货币紧缩"], answer: ["B"], explanation: "需求不足、物价低迷时通常采用双扩张组合以刺激总需求。", knowledgePoint: "财政政策与货币政策搭配：衰退通缩双扩张" },
+          { id: "p1-s9", type: "single", difficulty: "easy", question: "下列属于资本市场的是：", options: ["同业拆借市场", "票据市场", "股票市场", "回购协议市场"], answer: ["C"], explanation: "股票市场服务长期权益融资，属于资本市场。", knowledgePoint: "资本市场：股票市场" },
+          { id: "p1-s10", type: "single", difficulty: "easy", question: "我国金融监管格局通常概括为：", options: ["一行两会", "一行一局一会", "一局两会", "两行一会"], answer: ["B"], explanation: "当前金融监管格局可概括为中国人民银行、国家金融监督管理总局、中国证监会，即一行一局一会。", knowledgePoint: "金融监管格局：一行一局一会" },
+          { id: "p1-m1", type: "multiple", difficulty: "easy", question: "金融市场的作用包括：", options: ["资源优化配置", "信息生产与传递", "金融风险分担", "宏观经济调节"], answer: ["A", "B", "C", "D"], explanation: "金融市场通过价格、交易和风险分散机制发挥资源配置、信息传递、风险分担与宏观调节作用。", knowledgePoint: "金融市场作用" },
+          { id: "p1-m2", type: "multiple", difficulty: "easy", question: "货币市场的特点包括：", options: ["交易期限短", "流动性强", "风险和收益率较低", "主要解决长期融资问题"], answer: ["A", "B", "C"], explanation: "货币市场主要解决短期融资问题，不是长期融资市场。", knowledgePoint: "货币市场特点" },
+          { id: "p1-m3", type: "multiple", difficulty: "easy", question: "下列属于货币市场的有：", options: ["同业拆借市场", "回购协议市场", "票据市场", "股票市场"], answer: ["A", "B", "C"], explanation: "股票市场属于资本市场；同业拆借、回购和票据市场属于货币市场。", knowledgePoint: "货币市场构成" },
+          { id: "p1-m4", type: "multiple", difficulty: "easy", question: "中国人民银行的一般职能包括：", options: ["发行的银行", "政府的银行", "银行的银行", "金融管理的银行"], answer: ["A", "B", "C", "D"], explanation: "央行一般具有发行的银行、政府的银行、银行的银行和金融管理的银行职能。", knowledgePoint: "中央银行职能" },
+          { id: "p1-m5", type: "multiple", difficulty: "easy", question: "下列属于中央银行资产业务的有：", options: ["再贷款", "再贴现", "证券买卖", "黄金外汇储备"], answer: ["A", "B", "C", "D"], explanation: "再贷款、再贴现、证券买卖和黄金外汇储备都属于央行资产方项目。", knowledgePoint: "中央银行资产业务" },
+          { id: "p1-m6", type: "multiple", difficulty: "easy", question: "一般性货币政策工具包括：", options: ["法定存款准备金", "再贴现", "公开市场操作", "碳减排支持工具"], answer: ["A", "B", "C"], explanation: "碳减排支持工具属于结构性货币政策工具。", knowledgePoint: "一般性货币政策工具" },
+          { id: "p1-m7", type: "multiple", difficulty: "easy", question: "凯恩斯流动性偏好理论认为，人们持有货币的动机包括：", options: ["交易动机", "预防动机", "投机动机", "收藏黄金动机"], answer: ["A", "B", "C"], explanation: "凯恩斯将货币需求动机概括为交易、预防和投机三类。", knowledgePoint: "货币需求理论：凯恩斯流动性偏好理论" },
+          { id: "p1-m8", type: "multiple", difficulty: "easy", question: "下列属于资本市场工具的有：", options: ["股票", "公司债券", "长期债券", "同业拆借"], answer: ["A", "B", "C"], explanation: "同业拆借是短期资金市场工具，不属于资本市场工具。", knowledgePoint: "金融产品：资本市场工具" },
+          { id: "p1-m9", type: "multiple", difficulty: "medium", question: "金融监管五大监管理念包括：", options: ["机构监管", "行为监管", "功能监管", "穿透式监管", "持续监管"], answer: ["A", "B", "C", "D", "E"], explanation: "五大监管理念为机构监管、行为监管、功能监管、穿透式监管、持续监管。", knowledgePoint: "金融监管理念" },
+          { id: "p1-m10", type: "multiple", difficulty: "easy", question: "我国多层次股票市场通常包括：", options: ["主板", "创业板", "科创板", "北交所"], answer: ["A", "B", "C", "D"], explanation: "主板、创业板、科创板、北交所共同构成多层次资本市场的重要组成。", knowledgePoint: "股票市场结构" },
+          { id: "p1-j1", type: "judge", difficulty: "easy", question: "货币市场主要解决一年以内的短期资金融通问题。", options: ["正确", "错误"], answer: ["A"], explanation: "货币市场以短期金融工具为主，期限通常在一年以内。", knowledgePoint: "货币市场期限" },
+          { id: "p1-j2", type: "judge", difficulty: "easy", question: "资本市场只包括股票市场，不包括债券市场。", options: ["正确", "错误"], answer: ["B"], explanation: "资本市场包括股票市场、债券市场等长期融资市场。", knowledgePoint: "资本市场范围" },
+          { id: "p1-j3", type: "judge", difficulty: "easy", question: "发行货币属于中央银行的负债业务。", options: ["正确", "错误"], answer: ["A"], explanation: "货币发行是央行负债的重要组成。", knowledgePoint: "中央银行负债业务" },
+          { id: "p1-j4", type: "judge", difficulty: "easy", question: "M0 的流动性强于 M2。", options: ["正确", "错误"], answer: ["A"], explanation: "M0 是流通中的现金，流动性最强；M2 范围更广，流动性相对较弱。", knowledgePoint: "货币层次流动性" },
+          { id: "p1-j5", type: "judge", difficulty: "easy", question: "央行在公开市场买入证券会减少市场流动性。", options: ["正确", "错误"], answer: ["B"], explanation: "央行买入证券会投放资金，增加市场流动性。", knowledgePoint: "公开市场操作方向" },
+          { id: "p1-j6", type: "judge", difficulty: "easy", question: "提高法定存款准备金率通常会削弱商业银行贷款扩张能力。", options: ["正确", "错误"], answer: ["A"], explanation: "准备金率提高后，可贷资金减少，货币乘数下降。", knowledgePoint: "法定存款准备金" },
+          { id: "p1-j7", type: "judge", difficulty: "easy", question: "注册制的核心是信息披露。", options: ["正确", "错误"], answer: ["A"], explanation: "注册制以信息披露为中心，并不是政府定价或银行担保。", knowledgePoint: "注册制" },
+          { id: "p1-j8", type: "judge", difficulty: "medium", question: "穿透式监管强调不仅看产品表面，还要看资金真实流向和底层风险。", options: ["正确", "错误"], answer: ["A"], explanation: "穿透式监管要求识别真实交易结构、资金流向和底层资产风险。", knowledgePoint: "穿透式监管" },
+          { id: "p1-j9", type: "judge", difficulty: "easy", question: "回购协议市场属于货币市场的重要组成部分。", options: ["正确", "错误"], answer: ["A"], explanation: "回购协议通常期限短、流动性强，是货币市场的一类。", knowledgePoint: "回购协议市场" },
+          { id: "p1-j10", type: "judge", difficulty: "easy", question: "政府存款属于中央银行资产业务。", options: ["正确", "错误"], answer: ["B"], explanation: "政府存款是央行负债业务，不是资产业务。", knowledgePoint: "中央银行负债业务" }
+        ],
+        subjective: [
+          { id: "p1-short1", type: "short", score: 5, question: "简述货币市场与资本市场的区别。", answer: "可从四方面回答：一是期限不同，货币市场一般是一年以内，资本市场一般是一年以上；二是功能不同，货币市场调剂短期资金余缺，资本市场促进长期投资和资本形成；三是风险收益不同，货币市场流动性强、风险收益较低，资本市场期限较长、风险收益较高；四是工具不同，货币市场包括同业拆借、回购、票据等，资本市场包括股票、公司债券和长期债券等。", scoringPoints: ["期限比较", "功能比较", "风险收益比较", "典型工具举例"], knowledgePoint: "金融市场分类" },
+          { id: "p1-essay1", type: "essay", score: 5, question: "论述中央银行的一般职能。", answer: "中央银行的一般职能包括：发行的银行，负责货币发行并维护币值稳定；政府的银行，代理国库、管理政府存款并服务政府金融事务；银行的银行，集中存款准备金、办理清算并向商业银行提供再贷款、再贴现等支持；金融管理的银行，制定和执行货币政策，维护金融稳定并参与金融监管。", scoringPoints: ["发行的银行", "政府的银行", "银行的银行", "金融管理的银行"], knowledgePoint: "中央银行职能" },
+          { id: "p1-calc1", type: "calculation", score: 5, question: "某商业银行收到原始存款 10000 元，法定存款准备金率为 10%。假设不存在现金漏损和超额准备金，计算第一轮法定准备金、第一轮可贷资金、新增派生存款总额和最终存款总额。", answer: "第一轮法定准备金：\\(10000\\times10\\%=1000\\) 元。\n第一轮可贷资金：\\(10000-1000=9000\\) 元。\n新增派生存款总额：\\(9000+8100+7290+6561+\\cdots=\\frac{9000}{1-0.9}=90000\\) 元。\n最终存款总额：\\(10000+90000=100000\\) 元。\n注意：90000 是新增派生存款总额，不包括最初的 10000 元原始存款；100000 才是最终存款总额。", scoringPoints: ["准备金计算", "可贷资金计算", "无穷等比数列求和", "区分派生存款与最终存款"], knowledgePoint: "存款货币创造" },
+          { id: "p1-analysis1", type: "analysis", score: 5, question: "材料：经济出现需求不足、企业投资下降、物价低迷，政府计划增加基建投资并减税，央行准备降准并在公开市场买入证券。分析政策性质、适用形势和可能传导路径。", answer: "财政政策属于扩张性财政政策，货币政策属于扩张性货币政策。这种双扩张组合适用于需求不足、经济下行、通缩压力较大的情形。央行降准和买入证券会增加银行体系流动性，降低市场利率和融资成本，刺激投资与消费，并通过乘数效应提高总需求和国民收入。可用凯恩斯传导机制概括为 \\(M\\to r\\to I\\to E\\to Y\\)。", scoringPoints: ["判断双扩张", "说明适用经济形势", "解释流动性和利率变化", "写出传导机制"], knowledgePoint: "财政政策与货币政策搭配；货币政策传导机制" }
+        ]
+      },
+      {
+        id: "paper-2",
+        label: "第二套",
+        title: "易错强化卷",
+        description: "易混分类、发行制度、央行业务和监管理念。",
+        questions: [
+          { id: "p2-s1", type: "single", difficulty: "easy", question: "金融市场按证券发行和流通关系划分，可以分为：", options: ["一级市场和二级市场", "货币市场和资本市场", "场内市场和场外市场", "债权市场和股权市场"], answer: ["A"], explanation: "一级市场是发行市场，二级市场是流通转让市场。", knowledgePoint: "金融市场分类：一级市场与二级市场" },
+          { id: "p2-s2", type: "single", difficulty: "easy", question: "金融市场按交易场所划分，可以分为：", options: ["现货市场和期货市场", "场内市场和场外市场", "货币市场和资本市场", "债权市场和股权市场"], answer: ["B"], explanation: "按交易是否在集中交易场所进行，可分为场内市场与场外市场。", knowledgePoint: "金融市场分类：场内市场与场外市场" },
+          { id: "p2-s3", type: "single", difficulty: "easy", question: "下列最能体现“债权市场”的金融工具是：", options: ["普通股票", "基金份额", "公司债券", "认股权证"], answer: ["C"], explanation: "公司债券体现债权债务关系，属于债权市场工具。", knowledgePoint: "金融市场分类：债权市场与股权市场" },
+          { id: "p2-s4", type: "single", difficulty: "easy", question: "短期融资券通常更接近于：", options: ["股票市场工具", "货币市场工具", "不动产投资工具", "外汇储备"], answer: ["B"], explanation: "短期融资券期限较短，用于短期融资，属于货币市场工具。", knowledgePoint: "金融产品：短期融资券" },
+          { id: "p2-s5", type: "single", difficulty: "medium", question: "下列关于 M2 的说法，正确的是：", options: ["M2 = M0", "M2 = M1 + 准货币", "M2 的流动性强于 M0", "M2 不包括存款"], answer: ["B"], explanation: "M2 是广义货币，由 M1 加准货币构成。", knowledgePoint: "货币供给层次：M2" },
+          { id: "p2-s6", type: "single", difficulty: "easy", question: "中央银行对商业银行发放再贷款属于：", options: ["资产业务", "负债业务", "中间业务", "所有者权益"], answer: ["A"], explanation: "再贷款形成央行对商业银行的债权，属于资产业务。", knowledgePoint: "中央银行资产业务：再贷款" },
+          { id: "p2-s7", type: "single", difficulty: "easy", question: "下列属于中央银行负债业务的是：", options: ["黄金外汇储备", "再贴现", "商业银行存款准备金", "证券买卖"], answer: ["C"], explanation: "商业银行存放在央行的准备金属于央行负债。", knowledgePoint: "中央银行负债业务：准备金存款" },
+          { id: "p2-s8", type: "single", difficulty: "easy", question: "窗口指导主要通过什么方式影响商业银行行为？", options: ["强制接管企业", "劝告、提示、约谈等非强制引导", "直接替银行发放贷款", "取消金融市场交易"], answer: ["B"], explanation: "窗口指导属于间接性、非强制性的政策引导方式。", knowledgePoint: "货币政策工具：窗口指导" },
+          { id: "p2-s9", type: "single", difficulty: "medium", question: "下列最符合“穿透式监管”含义的是：", options: ["只看产品名称", "只监管银行柜台业务", "看资金真实流向和底层风险", "只关注机构牌照数量"], answer: ["C"], explanation: "穿透式监管强调透过表面结构识别真实交易关系、资金流向和风险承担者。", knowledgePoint: "金融监管理念：穿透式监管" },
+          { id: "p2-s10", type: "single", difficulty: "easy", question: "直接标价法下，本币数额增加通常表示：", options: ["本币升值", "本币贬值", "外币贬值且本币升值", "汇率没有变化"], answer: ["B"], explanation: "直接标价法以本币表示一单位外币价格，本币数额增加意味着本币购买外币更贵，即本币贬值。", knowledgePoint: "汇率：直接标价法" },
+          { id: "p2-m1", type: "multiple", difficulty: "easy", question: "下列属于债券品种的有：", options: ["国债", "地方政府债", "企业债", "中期票据"], answer: ["A", "B", "C", "D"], explanation: "国债、地方政府债、企业债和中期票据都属于债务融资工具。", knowledgePoint: "债券市场产品" },
+          { id: "p2-m2", type: "multiple", difficulty: "easy", question: "我国债券市场结构包括：", options: ["银行间债券市场", "交易所债券市场", "银行柜台债券市场", "二手房交易市场"], answer: ["A", "B", "C"], explanation: "我国债券市场主要由银行间、交易所和银行柜台债券市场构成。", knowledgePoint: "债券市场结构" },
+          { id: "p2-m3", type: "multiple", difficulty: "easy", question: "股票发行制度经历或包括的类型有：", options: ["审批制", "核准制", "注册制", "摇号配给制"], answer: ["A", "B", "C"], explanation: "审批制、核准制和注册制是常见的股票发行监管制度类型。", knowledgePoint: "股票发行制度" },
+          { id: "p2-m4", type: "multiple", difficulty: "medium", question: "下列属于结构性货币政策工具的有：", options: ["支农再贷款", "支小再贷款", "碳减排支持工具", "科技创新再贷款"], answer: ["A", "B", "C", "D"], explanation: "这些工具具有定向支持特定领域或薄弱环节的结构性特征。", knowledgePoint: "结构性货币政策工具" },
+          { id: "p2-m5", type: "multiple", difficulty: "medium", question: "弗里德曼现代货币数量论认为，影响货币需求的因素包括：", options: ["财富总量", "各类资产预期收益率", "永久性收入", "股票交易时间"], answer: ["A", "B", "C"], explanation: "弗里德曼强调财富、永久性收入及不同资产预期收益率等因素。", knowledgePoint: "货币需求理论：弗里德曼现代货币数量论" },
+          { id: "p2-m6", type: "multiple", difficulty: "easy", question: "下列市场分类对应正确的有：", options: ["按期限：货币市场与资本市场", "按发行流通：一级市场与二级市场", "按交易场所：场内市场与场外市场", "按交割时间：现货市场与期货市场"], answer: ["A", "B", "C", "D"], explanation: "四组分类均为常见金融市场分类维度。", knowledgePoint: "金融市场分类体系" },
+          { id: "p2-m7", type: "multiple", difficulty: "easy", question: "中央银行负债业务通常包括：", options: ["货币发行", "商业银行存款准备金", "政府存款", "再贷款"], answer: ["A", "B", "C"], explanation: "再贷款属于资产业务；货币发行、准备金存款、政府存款属于央行负债业务。", knowledgePoint: "中央银行负债业务" },
+          { id: "p2-m8", type: "multiple", difficulty: "easy", question: "金融监管原则包括：", options: ["依法监管", "公平公正", "合规监管", "不干预正常经营"], answer: ["A", "B", "C", "D"], explanation: "金融监管强调依法、公平、公正、合规、协调，并尊重机构正常经营。", knowledgePoint: "金融监管原则" },
+          { id: "p2-m9", type: "multiple", difficulty: "medium", question: "在衰退通缩时，扩张性货币政策可能包括：", options: ["降低准备金率", "公开市场买入证券", "降低再贴现率", "大幅提高准备金率"], answer: ["A", "B", "C"], explanation: "降低准备金率、买入证券和降低再贴现率都可增加流动性；提高准备金率是紧缩。", knowledgePoint: "扩张性货币政策" },
+          { id: "p2-m10", type: "multiple", difficulty: "easy", question: "下列属于金融产品或金融工具的有：", options: ["股票", "债券", "票据", "回购协议"], answer: ["A", "B", "C", "D"], explanation: "股票、债券、票据和回购协议都是常见金融工具。", knowledgePoint: "金融产品分类" },
+          { id: "p2-j1", type: "judge", difficulty: "easy", question: "一级市场又称发行市场。", options: ["正确", "错误"], answer: ["A"], explanation: "一级市场是证券首次发行和募集资金的市场。", knowledgePoint: "一级市场" },
+          { id: "p2-j2", type: "judge", difficulty: "easy", question: "二级市场主要服务于已发行证券的流通转让。", options: ["正确", "错误"], answer: ["A"], explanation: "二级市场的核心功能是流动性提供和价格发现。", knowledgePoint: "二级市场" },
+          { id: "p2-j3", type: "judge", difficulty: "easy", question: "场外市场一定没有监管。", options: ["正确", "错误"], answer: ["B"], explanation: "场外市场也需要依法监管，只是交易组织方式不同。", knowledgePoint: "场外市场" },
+          { id: "p2-j4", type: "judge", difficulty: "easy", question: "公司债券属于债权融资工具。", options: ["正确", "错误"], answer: ["A"], explanation: "公司债券体现发行人与投资者之间的债权债务关系。", knowledgePoint: "债权市场" },
+          { id: "p2-j5", type: "judge", difficulty: "easy", question: "M2 = M1 + 准货币。", options: ["正确", "错误"], answer: ["A"], explanation: "这是广义货币 M2 的常见表达。", knowledgePoint: "货币供给层次" },
+          { id: "p2-j6", type: "judge", difficulty: "easy", question: "再贴现属于中央银行负债业务。", options: ["正确", "错误"], answer: ["B"], explanation: "再贴现是央行对商业银行融出资金，属于资产业务。", knowledgePoint: "中央银行资产业务" },
+          { id: "p2-j7", type: "judge", difficulty: "medium", question: "结构性货币政策工具强调总量调节，完全不体现定向支持。", options: ["正确", "错误"], answer: ["B"], explanation: "结构性工具的重要特点就是定向支持重点领域或薄弱环节。", knowledgePoint: "结构性货币政策工具" },
+          { id: "p2-j8", type: "judge", difficulty: "easy", question: "窗口指导通常属于非强制性的政策引导方式。", options: ["正确", "错误"], answer: ["A"], explanation: "窗口指导多通过提示、劝告、约谈等方式影响金融机构行为。", knowledgePoint: "窗口指导" },
+          { id: "p2-j9", type: "judge", difficulty: "medium", question: "监管中的适度竞争原则意味着鼓励无序竞争。", options: ["正确", "错误"], answer: ["B"], explanation: "适度竞争是促进效率与稳健的平衡，不是无序竞争。", knowledgePoint: "金融监管原则" },
+          { id: "p2-j10", type: "judge", difficulty: "medium", question: "直接标价法下，汇率上升通常意味着本币贬值。", options: ["正确", "错误"], answer: ["A"], explanation: "直接标价法中外币价格用本币表示，数额上升说明本币相对贬值。", knowledgePoint: "汇率标价方法" }
+        ],
+        subjective: [
+          { id: "p2-short1", type: "short", score: 5, question: "简述一级市场与二级市场的区别和联系。", answer: "一级市场是发行市场，解决资金募集和证券首次发行问题；二级市场是流通市场，解决已发行证券的买卖转让问题。二者相互联系：一级市场是二级市场的基础，二级市场提供流动性和价格发现，反过来影响一级市场发行。", scoringPoints: ["一级市场含义", "二级市场含义", "二者联系", "价格发现和流动性"], knowledgePoint: "金融市场分类" },
+          { id: "p2-essay1", type: "essay", score: 5, question: "比较审批制、核准制和注册制的基本特点。", answer: "审批制更强调行政审批和额度管理；核准制在市场化基础上仍强调监管机构对发行条件的实质审核；注册制以信息披露为核心，监管部门主要关注信息披露是否真实、准确、完整，并不意味着完全不审核。三者体现了证券发行制度逐步市场化、法治化的演进。", scoringPoints: ["审批制特点", "核准制特点", "注册制核心", "制度演进方向"], knowledgePoint: "股票发行制度" },
+          { id: "p2-calc1", type: "calculation", score: 5, question: "某人存入本金 20000 元，年利率 4%，期限 3 年，按单利计算。求利息和到期本利和。", answer: "单利利息公式：\\(I=P\\times r\\times n\\)。\n\\(I=20000\\times4\\%\\times3=2400\\) 元。\n单利本利和公式：\\(S=P(1+r\\times n)\\)。\n\\(S=20000\\times(1+4\\%\\times3)=22400\\) 元。", scoringPoints: ["写出单利公式", "计算利息", "计算本利和", "单位正确"], knowledgePoint: "利率计算：单利" },
+          { id: "p2-analysis1", type: "analysis", score: 5, question: "材料：某资管产品层层嵌套，表面投向低风险资产，但资金实际流向高风险项目。请用金融监管理念分析应如何监管。", answer: "应运用穿透式监管，不能只看产品表面名称和合同包装，而要穿透识别资金真实流向、底层资产和最终风险承担者。同时要结合功能监管和行为监管，关注同类业务的实质风险以及销售、信息披露和投资者保护问题，并通过持续监管跟踪风险变化。", scoringPoints: ["指出穿透式监管", "识别真实流向和底层风险", "结合功能/行为监管", "强调持续监管"], knowledgePoint: "金融监管五大理念" }
+        ]
+      },
+      {
+        id: "paper-3",
+        label: "第三套",
+        title: "综合训练卷",
+        description: "利率、汇率、金融机构、需求理论与传导机制。",
+        questions: [
+          { id: "p3-s1", type: "single", difficulty: "easy", question: "利率本质上可以理解为：", options: ["股票价格", "资金使用权的价格", "企业利润率", "外汇储备数量"], answer: ["B"], explanation: "利率是一定时期内使用资金所支付的价格。", knowledgePoint: "利率概念" },
+          { id: "p3-s2", type: "single", difficulty: "medium", question: "利率期限结构主要研究的是：", options: ["不同期限债券收益率之间的关系", "不同股票之间的股价差异", "央行资产负债表规模", "商业银行网点布局"], answer: ["A"], explanation: "期限结构关注相同风险条件下不同期限金融资产收益率之间的关系。", knowledgePoint: "利率期限结构" },
+          { id: "p3-s3", type: "single", difficulty: "easy", question: "商业银行经营原则中，通常作为前提的是：", options: ["盈利性", "安全性", "扩张性", "投机性"], answer: ["B"], explanation: "商业银行经营强调安全性、流动性、盈利性，其中安全性是前提。", knowledgePoint: "商业银行经营原则" },
+          { id: "p3-s4", type: "single", difficulty: "easy", question: "下列哪项属于商业银行最基本的负债业务？", options: ["发放贷款", "吸收存款", "购买股票", "办理票据贴现"], answer: ["B"], explanation: "吸收存款是商业银行最基本、最主要的负债业务。", knowledgePoint: "商业银行业务" },
+          { id: "p3-s5", type: "single", difficulty: "medium", question: "凯恩斯学派货币政策传导机制通常可表示为：", options: ["M → r → I → E → Y", "R → r → L → K → Y", "M → i → E → NX → Y", "P → Q → T → V"], answer: ["A"], explanation: "凯恩斯学派强调货币供给影响利率，进而影响投资、总支出和收入。", knowledgePoint: "货币政策传导机制：凯恩斯学派" },
+          { id: "p3-s6", type: "single", difficulty: "medium", question: "汇率传导机制通常可表示为：", options: ["M → r → I → E → Y", "M → i → E → NX → Y", "R → r → L → K → Y", "C → R → B → M"], answer: ["B"], explanation: "汇率渠道强调货币供给影响利率和汇率，进而影响净出口与国民收入。", knowledgePoint: "货币政策传导机制：汇率渠道" },
+          { id: "p3-s7", type: "single", difficulty: "easy", question: "古典货币数量论通常强调货币数量与下列哪项之间的关系？", options: ["价格水平", "公司治理结构", "银行网点数量", "期货交割仓库"], answer: ["A"], explanation: "古典货币数量论强调货币数量变动与价格水平之间的关系。", knowledgePoint: "货币需求理论：古典货币数量论" },
+          { id: "p3-s8", type: "single", difficulty: "medium", question: "马克思货币需求理论中，货币需求主要与商品价格总额和下列哪项相关？", options: ["货币流通速度", "公司股票市值", "财政赤字规模", "监管机构数量"], answer: ["A"], explanation: "马克思认为流通中所需货币量与商品价格总额成正比，与货币流通速度成反比。", knowledgePoint: "货币需求理论：马克思货币需求理论" },
+          { id: "p3-s9", type: "single", difficulty: "easy", question: "下列属于股权融资工具的是：", options: ["股票", "国债", "银行承兑汇票", "同业拆借"], answer: ["A"], explanation: "股票代表所有权或权益关系，属于股权融资工具。", knowledgePoint: "金融产品：股权工具" },
+          { id: "p3-s10", type: "single", difficulty: "medium", question: "下列属于宏观审慎管理重点关注的是：", options: ["系统性金融风险", "单个学生成绩", "企业广告文案", "普通商品包装"], answer: ["A"], explanation: "宏观审慎管理强调从整个金融体系角度防范系统性金融风险和顺周期波动。", knowledgePoint: "宏观审慎管理" },
+          { id: "p3-m1", type: "multiple", difficulty: "easy", question: "金融机构的基本功能包括：", options: ["降低交易成本", "资金融通", "风险管理", "提供支付结算服务"], answer: ["A", "B", "C", "D"], explanation: "金融机构通过专业化经营实现资金融通、支付结算、风险管理和信息处理等功能。", knowledgePoint: "金融机构功能" },
+          { id: "p3-m2", type: "multiple", difficulty: "easy", question: "商业银行的主要业务包括：", options: ["负债业务", "资产业务", "中间业务", "货币发行垄断"], answer: ["A", "B", "C"], explanation: "商业银行主要业务包括负债、资产和中间业务；货币发行垄断属于中央银行职能。", knowledgePoint: "商业银行业务分类" },
+          { id: "p3-m3", type: "multiple", difficulty: "medium", question: "下列属于信用形式的有：", options: ["商业信用", "银行信用", "国家信用", "消费信用"], answer: ["A", "B", "C", "D"], explanation: "商业信用、银行信用、国家信用和消费信用都是常见信用形式。", knowledgePoint: "货币与信用" },
+          { id: "p3-m4", type: "multiple", difficulty: "medium", question: "影响利率水平的因素可能包括：", options: ["资金供求", "通货膨胀预期", "风险程度", "期限长短"], answer: ["A", "B", "C", "D"], explanation: "资金供求、通胀预期、风险和期限都会影响利率水平。", knowledgePoint: "利率决定因素" },
+          { id: "p3-m5", type: "multiple", difficulty: "medium", question: "货币政策传导机制包括：", options: ["利率传导机制", "汇率传导机制", "信用传导机制", "随机抽签机制"], answer: ["A", "B", "C"], explanation: "常见传导机制包括利率、汇率和信用渠道。", knowledgePoint: "货币政策传导机制" },
+          { id: "p3-m6", type: "multiple", difficulty: "easy", question: "凯恩斯流动性偏好理论中的投机动机与下列因素有关：", options: ["利率预期", "债券价格预期", "持有货币机会成本", "商品颜色"], answer: ["A", "B", "C"], explanation: "投机性货币需求与利率、债券价格预期和持币机会成本相关。", knowledgePoint: "凯恩斯货币需求理论" },
+          { id: "p3-m7", type: "multiple", difficulty: "medium", question: "下列关于汇率的说法正确的有：", options: ["汇率是两种货币之间的兑换比率", "汇率变化会影响进出口", "本币贬值通常有利于出口", "汇率与国际收支完全无关"], answer: ["A", "B", "C"], explanation: "汇率是货币兑换比率，会影响进出口和国际收支。", knowledgePoint: "汇率基础" },
+          { id: "p3-m8", type: "multiple", difficulty: "easy", question: "下列属于货币基本职能的有：", options: ["价值尺度", "流通手段", "支付手段", "贮藏手段"], answer: ["A", "B", "C", "D"], explanation: "货币通常具有价值尺度、流通手段、支付手段、贮藏手段等职能。", knowledgePoint: "货币职能" },
+          { id: "p3-m9", type: "multiple", difficulty: "medium", question: "信用传导机制中常见的变量包括：", options: ["准备金 R", "利率 r", "贷款 L", "投资或资本 K"], answer: ["A", "B", "C", "D"], explanation: "信用传导可概括为 R → r → L → K → Y。", knowledgePoint: "货币政策传导机制：信用渠道" },
+          { id: "p3-m10", type: "multiple", difficulty: "easy", question: "下列属于资本市场板块或场所的有：", options: ["主板", "创业板", "科创板", "场外资本市场"], answer: ["A", "B", "C", "D"], explanation: "这些都是多层次资本市场的重要组成部分。", knowledgePoint: "多层次资本市场" },
+          { id: "p3-j1", type: "judge", difficulty: "easy", question: "利率可以看作资金使用权的价格。", options: ["正确", "错误"], answer: ["A"], explanation: "借入资金需要支付利息，利率反映资金使用价格。", knowledgePoint: "利率概念" },
+          { id: "p3-j2", type: "judge", difficulty: "medium", question: "期限越长的金融资产收益率一定越低。", options: ["正确", "错误"], answer: ["B"], explanation: "期限结构可能向上、向下或平坦，不能说期限越长收益率一定越低。", knowledgePoint: "利率期限结构" },
+          { id: "p3-j3", type: "judge", difficulty: "easy", question: "商业银行经营只需要追求盈利性，不需要考虑安全性。", options: ["正确", "错误"], answer: ["B"], explanation: "商业银行必须兼顾安全性、流动性和盈利性。", knowledgePoint: "商业银行经营原则" },
+          { id: "p3-j4", type: "judge", difficulty: "easy", question: "吸收存款属于商业银行负债业务。", options: ["正确", "错误"], answer: ["A"], explanation: "存款是商业银行对存款人的负债。", knowledgePoint: "商业银行负债业务" },
+          { id: "p3-j5", type: "judge", difficulty: "medium", question: "凯恩斯传导机制强调货币供给变化通过利率影响投资和收入。", options: ["正确", "错误"], answer: ["A"], explanation: "这一机制可概括为 M → r → I → E → Y。", knowledgePoint: "利率传导机制" },
+          { id: "p3-j6", type: "judge", difficulty: "medium", question: "汇率变化可能通过净出口影响国民收入。", options: ["正确", "错误"], answer: ["A"], explanation: "汇率渠道中，汇率影响净出口，进而影响总需求和收入。", knowledgePoint: "汇率传导机制" },
+          { id: "p3-j7", type: "judge", difficulty: "easy", question: "股票代表债权债务关系。", options: ["正确", "错误"], answer: ["B"], explanation: "股票代表权益关系，债券才体现债权债务关系。", knowledgePoint: "股权工具与债权工具" },
+          { id: "p3-j8", type: "judge", difficulty: "medium", question: "弗里德曼更强调永久性收入对货币需求的影响。", options: ["正确", "错误"], answer: ["A"], explanation: "现代货币数量论把永久性收入视为影响货币需求的重要因素。", knowledgePoint: "弗里德曼现代货币数量论" },
+          { id: "p3-j9", type: "judge", difficulty: "easy", question: "消费信用是信用的一种形式。", options: ["正确", "错误"], answer: ["A"], explanation: "消费信用是企业、银行等向消费者提供的信用。", knowledgePoint: "信用形式" },
+          { id: "p3-j10", type: "judge", difficulty: "medium", question: "宏观审慎管理强调从整个金融体系角度防范系统性风险。", options: ["正确", "错误"], answer: ["A"], explanation: "宏观审慎管理不同于只盯单个机构的微观监管，更关注系统性风险、顺周期波动和风险传染。", knowledgePoint: "宏观审慎管理" }
+        ],
+        subjective: [
+          { id: "p3-short1", type: "short", score: 5, question: "简述商业银行经营的安全性、流动性和盈利性原则。", answer: "安全性是前提，要求控制信用风险、市场风险和操作风险，保障资产安全；流动性要求银行能够及时满足客户提款和支付需要；盈利性要求银行通过贷款、投资和中间业务获取利润。三者既统一又存在一定矛盾，商业银行要在稳健经营基础上实现收益。", scoringPoints: ["安全性", "流动性", "盈利性", "三者关系"], knowledgePoint: "商业银行经营原则" },
+          { id: "p3-essay1", type: "essay", score: 5, question: "论述凯恩斯流动性偏好理论的三种货币需求动机。", answer: "交易动机是为满足日常交易支付而持有货币，主要受收入和交易规模影响；预防动机是为应对不确定支出而持有货币，也与收入和风险预期有关；投机动机是为了根据利率和债券价格变化进行资产选择而持有货币，通常与利率呈反向关系。", scoringPoints: ["交易动机", "预防动机", "投机动机", "影响因素"], knowledgePoint: "凯恩斯货币需求理论" },
+          { id: "p3-calc1", type: "calculation", score: 5, question: "某人存入本金 10000 元，年利率 5%，期限 2 年，按复利计算。求到期本利和与利息。", answer: "复利本利和公式：\\(S=P(1+r)^n\\)。\n\\(S=10000\\times(1+5\\%)^2=10000\\times1.1025=11025\\) 元。\n复利利息：\\(I=S-P=11025-10000=1025\\) 元。", scoringPoints: ["写出复利公式", "计算本利和", "计算利息", "单位正确"], knowledgePoint: "利率计算：复利" },
+          { id: "p3-analysis1", type: "analysis", score: 5, question: "材料：央行增加货币供给后，市场利率下降，本币汇率走弱，出口企业订单增加。请用货币政策传导机制解释。", answer: "可从利率渠道和汇率渠道解释。利率渠道中，货币供给增加使利率下降，融资成本降低，投资增加，从而提高总支出和收入，即 \\(M\\to r\\to I\\to E\\to Y\\)。汇率渠道中，货币供给增加带动利率下降，资本流动和汇率变化使本币贬值，净出口增加，进而提高收入，即 \\(M\\to i\\to E\\to NX\\to Y\\)。", scoringPoints: ["解释利率渠道", "解释汇率渠道", "说明净出口变化", "写出传导链条"], knowledgePoint: "货币政策传导机制" }
+        ]
+      },
+      {
+        id: "paper-4",
+        label: "第四套",
+        title: "计算与政策工具卷",
+        description: "单利复利、存款创造、政策工具与政策搭配。",
+        questions: [
+          { id: "p4-s1", type: "single", difficulty: "easy", question: "单利利息的计算公式是：", options: ["\\(I=P\\times r\\times n\\)", "\\(S=P(1+r)^n\\)", "\\(B=R+C\\)", "\\(M2=M1+P\\)"], answer: ["A"], explanation: "单利利息按本金、利率和期限相乘计算。", knowledgePoint: "单利计算" },
+          { id: "p4-s2", type: "single", difficulty: "easy", question: "复利本利和的计算公式是：", options: ["\\(S=P(1+r)^n\\)", "\\(I=P\\times r\\times n\\)", "\\(B=R+C\\)", "\\(M0=M2+M1\\)"], answer: ["A"], explanation: "复利每期利息会并入本金继续计息。", knowledgePoint: "复利计算" },
+          { id: "p4-s3", type: "single", difficulty: "medium", question: "原始存款 10000 元，法定准备金率 20%，无现金漏损和超额准备金，则最终存款总额为：", options: ["20000 元", "50000 元", "80000 元", "100000 元"], answer: ["B"], explanation: "存款乘数为 \\(1/20\\%=5\\)，最终存款总额为 \\(10000\\times5=50000\\) 元。", knowledgePoint: "存款货币创造" },
+          { id: "p4-s4", type: "single", difficulty: "medium", question: "原始存款 10000 元，法定准备金率 20%，新增派生存款总额为：", options: ["40000 元", "50000 元", "10000 元", "20000 元"], answer: ["A"], explanation: "最终存款总额为 50000 元，扣除原始存款 10000 元，新增派生存款为 40000 元。", knowledgePoint: "派生存款与最终存款区别" },
+          { id: "p4-s5", type: "single", difficulty: "easy", question: "央行提高法定存款准备金率通常属于：", options: ["扩张性货币政策", "紧缩性货币政策", "扩张性财政政策", "收入政策"], answer: ["B"], explanation: "提高准备金率会减少可贷资金和货币乘数，具有紧缩效果。", knowledgePoint: "法定存款准备金" },
+          { id: "p4-s6", type: "single", difficulty: "easy", question: "央行降低再贴现率通常会：", options: ["提高商业银行融资成本", "降低商业银行融资成本", "减少基础货币", "取消贷款市场"], answer: ["B"], explanation: "降低再贴现率会降低商业银行从央行融资的成本，具有扩张效果。", knowledgePoint: "再贴现政策" },
+          { id: "p4-s7", type: "single", difficulty: "medium", question: "快速扩张但物价水平偏低时，较适合的政策组合是：", options: ["财政紧缩、货币扩张", "财政扩张、货币紧缩", "双紧缩", "双扩张"], answer: ["A"], explanation: "快速扩张需要财政适度收缩，物价偏低又可通过货币扩张维持流动性。", knowledgePoint: "财政政策与货币政策搭配" },
+          { id: "p4-s8", type: "single", difficulty: "medium", question: "经济过热并出现通货膨胀时，常见政策组合是：", options: ["双扩张", "双紧缩", "财政扩张、货币紧缩", "财政紧缩、货币扩张"], answer: ["B"], explanation: "过热通胀通常需要财政和货币政策同时偏紧以抑制总需求。", knowledgePoint: "政策搭配：过热通胀" },
+          { id: "p4-s9", type: "single", difficulty: "easy", question: "SLF、MLF、PSL 更接近于：", options: ["股票发行制度", "结构性或创新型货币政策工具", "商业银行自有资本", "债券信用评级"], answer: ["B"], explanation: "SLF、MLF、PSL 是央行流动性管理和结构性调控工具。", knowledgePoint: "结构性货币政策工具" },
+          { id: "p4-s10", type: "single", difficulty: "medium", question: "信用传导机制可以概括为：", options: ["R → r → L → K → Y", "M → P → V → T", "E → C → B → R", "S → P → I → R"], answer: ["A"], explanation: "信用传导强调准备金、利率、贷款、投资或资本形成对收入的影响。", knowledgePoint: "货币政策传导机制：信用渠道" },
+          { id: "p4-m1", type: "multiple", difficulty: "medium", question: "下列属于扩张性货币政策操作的有：", options: ["降低法定存款准备金率", "公开市场买入证券", "降低再贴现率", "提高法定存款准备金率"], answer: ["A", "B", "C"], explanation: "降低准备金率、买入证券、降低再贴现率都会增加流动性；提高准备金率是紧缩。", knowledgePoint: "扩张性货币政策" },
+          { id: "p4-m2", type: "multiple", difficulty: "medium", question: "下列属于紧缩性货币政策操作的有：", options: ["提高法定存款准备金率", "公开市场卖出证券", "提高再贴现率", "降低再贴现率"], answer: ["A", "B", "C"], explanation: "提高准备金率、卖出证券和提高再贴现率会收紧流动性。", knowledgePoint: "紧缩性货币政策" },
+          { id: "p4-m3", type: "multiple", difficulty: "easy", question: "一般性货币政策工具的特点包括：", options: ["影响面广", "主要调节总量", "包括法定准备金、再贴现和公开市场操作", "只针对某一行业"], answer: ["A", "B", "C"], explanation: "一般性工具面向总量调节；只针对某一行业更符合结构性工具。", knowledgePoint: "一般性货币政策工具" },
+          { id: "p4-m4", type: "multiple", difficulty: "medium", question: "结构性货币政策工具可能包括：", options: ["MLF", "SLF", "PSL", "支农支小再贷款"], answer: ["A", "B", "C", "D"], explanation: "这些工具具有流动性管理或定向支持功能，常在结构性调控中使用。", knowledgePoint: "结构性货币政策工具" },
+          { id: "p4-m5", type: "multiple", difficulty: "medium", question: "关于存款货币创造，下列说法正确的有：", options: ["法定准备金率越高，存款乘数越小", "无现金漏损时，存款乘数可用 \\(1/rr\\) 表示", "新增派生存款不包括原始存款", "最终存款总额包括原始存款"], answer: ["A", "B", "C", "D"], explanation: "四项均符合简单存款创造模型。", knowledgePoint: "存款货币创造" },
+          { id: "p4-m6", type: "multiple", difficulty: "medium", question: "财政政策与货币政策搭配中，表述正确的有：", options: ["衰退通缩：双扩张", "滞胀并存：财政扩张、货币紧缩", "快速扩张但物价低：财政紧缩、货币扩张", "过热通胀：双紧缩"], answer: ["A", "B", "C", "D"], explanation: "四种搭配均对应常见宏观经济形势。", knowledgePoint: "政策组合" },
+          { id: "p4-m7", type: "multiple", difficulty: "easy", question: "公开市场操作的特点包括：", options: ["灵活性强", "主动性强", "可逆性较强", "只能一年操作一次"], answer: ["A", "B", "C"], explanation: "公开市场操作灵活、主动、可逆，适合日常流动性调节。", knowledgePoint: "公开市场操作" },
+          { id: "p4-m8", type: "multiple", difficulty: "medium", question: "再贴现政策的作用方向包括：", options: ["降低再贴现率具有扩张效果", "提高再贴现率具有紧缩效果", "放宽再贴现条件可支持信用扩张", "再贴现率与商业银行融资成本无关"], answer: ["A", "B", "C"], explanation: "再贴现率会影响商业银行从央行融资的成本。", knowledgePoint: "再贴现政策" },
+          { id: "p4-m9", type: "multiple", difficulty: "easy", question: "下列属于政策预期管理方式的有：", options: ["政策沟通", "公开表态", "发布政策信号", "隐瞒所有政策信息"], answer: ["A", "B", "C"], explanation: "预期管理通过沟通和政策信号影响市场主体预期。", knowledgePoint: "预期管理" },
+          { id: "p4-m10", type: "multiple", difficulty: "medium", question: "货币政策传导最终可能影响：", options: ["投资", "消费或总支出", "净出口", "国民收入"], answer: ["A", "B", "C", "D"], explanation: "不同传导渠道会影响投资、消费、净出口和国民收入。", knowledgePoint: "货币政策传导机制" },
+          { id: "p4-j1", type: "judge", difficulty: "easy", question: "单利计算中，利息不会并入本金继续计息。", options: ["正确", "错误"], answer: ["A"], explanation: "单利只按原始本金计算利息。", knowledgePoint: "单利" },
+          { id: "p4-j2", type: "judge", difficulty: "easy", question: "复利计算中，前期利息会并入本金继续计息。", options: ["正确", "错误"], answer: ["A"], explanation: "复利体现利滚利。", knowledgePoint: "复利" },
+          { id: "p4-j3", type: "judge", difficulty: "medium", question: "新增派生存款总额包括最初的原始存款。", options: ["正确", "错误"], answer: ["B"], explanation: "新增派生存款不包括原始存款；最终存款总额才包括原始存款。", knowledgePoint: "派生存款与最终存款" },
+          { id: "p4-j4", type: "judge", difficulty: "easy", question: "降低法定存款准备金率通常会提高商业银行可贷资金。", options: ["正确", "错误"], answer: ["A"], explanation: "准备金率下降，银行留存准备金减少，可贷资金增加。", knowledgePoint: "法定准备金率" },
+          { id: "p4-j5", type: "judge", difficulty: "easy", question: "央行卖出证券会向市场投放基础货币。", options: ["正确", "错误"], answer: ["B"], explanation: "央行卖出证券会回笼资金，减少基础货币。", knowledgePoint: "公开市场操作" },
+          { id: "p4-j6", type: "judge", difficulty: "medium", question: "滞胀并存时，政策组合可考虑财政扩张、货币紧缩。", options: ["正确", "错误"], answer: ["A"], explanation: "财政扩张可稳增长，货币紧缩可抑制通胀。", knowledgePoint: "政策搭配：滞胀" },
+          { id: "p4-j7", type: "judge", difficulty: "medium", question: "MLF、SLF、PSL 都不属于任何货币政策工具。", options: ["正确", "错误"], answer: ["B"], explanation: "它们属于央行流动性管理或结构性政策工具。", knowledgePoint: "结构性货币政策工具" },
+          { id: "p4-j8", type: "judge", difficulty: "easy", question: "公开市场操作具有较强灵活性。", options: ["正确", "错误"], answer: ["A"], explanation: "公开市场操作可根据流动性变化灵活开展。", knowledgePoint: "公开市场操作特点" },
+          { id: "p4-j9", type: "judge", difficulty: "medium", question: "政策预期管理可以影响市场主体的行为。", options: ["正确", "错误"], answer: ["A"], explanation: "政策沟通和信号释放会影响企业、居民和金融机构预期。", knowledgePoint: "预期管理" },
+          { id: "p4-j10", type: "judge", difficulty: "medium", question: "信用传导机制完全不涉及商业银行贷款。", options: ["正确", "错误"], answer: ["B"], explanation: "信用传导机制强调银行贷款 L 对投资和产出的影响。", knowledgePoint: "信用传导机制" }
+        ],
+        subjective: [
+          { id: "p4-short1", type: "short", score: 5, question: "简述法定存款准备金政策的作用方向和特点。", answer: "降低法定存款准备金率会增加商业银行可贷资金，提高货币乘数，具有扩张效果；提高准备金率会减少可贷资金，降低货币乘数，具有紧缩效果。该工具影响面广、力度较大，但不宜频繁使用。", scoringPoints: ["降准扩张", "提准紧缩", "影响货币乘数", "力度大不宜频繁"], knowledgePoint: "法定存款准备金" },
+          { id: "p4-essay1", type: "essay", score: 5, question: "论述一般性货币政策工具的内容、作用及特点。", answer: "一般性货币政策工具包括法定存款准备金、再贴现和公开市场操作。法定准备金通过影响可贷资金和货币乘数调节信用扩张，力度大、影响广；再贴现通过改变商业银行向央行融资的成本和条件影响信贷供给，具有告示效应；公开市场操作通过买卖证券投放或回笼基础货币，灵活、主动、可逆，是常用的日常调节工具。", scoringPoints: ["三大工具", "扩张/紧缩方向", "各自特点", "作用机制"], knowledgePoint: "一般性货币政策工具" },
+          { id: "p4-calc1", type: "calculation", score: 5, question: "原始存款 50000 元，法定准备金率 25%，无现金漏损和超额准备金。计算第一轮准备金、第一轮可贷资金、新增派生存款和最终存款总额。", answer: "第一轮准备金：\\(50000\\times25\\%=12500\\) 元。\n第一轮可贷资金：\\(50000-12500=37500\\) 元。\n存款乘数：\\(1/25\\%=4\\)。\n最终存款总额：\\(50000\\times4=200000\\) 元。\n新增派生存款总额：\\(200000-50000=150000\\) 元。\n也可写成 \\(37500+28125+21093.75+\\cdots=\\frac{37500}{1-0.75}=150000\\)。", scoringPoints: ["准备金", "可贷资金", "最终存款", "新增派生存款"], knowledgePoint: "存款货币创造" },
+          { id: "p4-analysis1", type: "analysis", score: 5, question: "材料：物价上涨较快，资产价格偏热，央行决定提高准备金率并公开市场卖出证券。请分析政策性质和影响。", answer: "这属于紧缩性货币政策。提高准备金率会减少商业银行可贷资金并降低货币乘数；公开市场卖出证券会回笼基础货币，减少市场流动性。两者都会抑制信用扩张和总需求，有助于缓解经济过热和通胀压力，但也可能降低投资和经济增速。", scoringPoints: ["判断紧缩政策", "分析提准影响", "分析卖出证券影响", "说明宏观效果"], knowledgePoint: "紧缩性货币政策" }
+        ]
+      },
+      {
+        id: "paper-5",
+        label: "第五套",
+        title: "考前模拟卷",
+        description: "按期末风格综合覆盖高频考点。",
+        questions: [
+          { id: "p5-s1", type: "single", difficulty: "easy", question: "金融市场按交割时间划分，可以分为：", options: ["现货市场和期货市场", "一级市场和二级市场", "场内市场和场外市场", "债权市场和股权市场"], answer: ["A"], explanation: "按成交后交割时间不同，金融市场可分为现货市场和期货市场。", knowledgePoint: "金融市场分类：现货市场与期货市场" },
+          { id: "p5-s2", type: "single", difficulty: "easy", question: "票据市场属于：", options: ["货币市场", "股票市场", "不动产市场", "长期资本市场"], answer: ["A"], explanation: "票据期限较短、流动性较强，是货币市场的重要组成。", knowledgePoint: "货币市场：票据市场" },
+          { id: "p5-s3", type: "single", difficulty: "medium", question: "下列关于北交所的说法较合适的是：", options: ["属于多层次资本市场组成部分", "属于同业拆借市场", "只办理货币发行", "只交易外汇"], answer: ["A"], explanation: "北交所是我国多层次资本市场的重要组成部分。", knowledgePoint: "股票市场结构：北交所" },
+          { id: "p5-s4", type: "single", difficulty: "easy", question: "中国人民银行作为“银行的银行”，主要体现在：", options: ["向公众销售商品", "集中存款准备金并办理清算", "审批所有企业利润", "直接经营普通商业企业"], answer: ["B"], explanation: "央行作为银行的银行，服务商业银行和金融机构，集中准备金、办理清算并提供流动性支持。", knowledgePoint: "中央银行职能：银行的银行" },
+          { id: "p5-s5", type: "single", difficulty: "easy", question: "货币供给层次中流动性最强的是：", options: ["M0", "M1", "M2", "准货币"], answer: ["A"], explanation: "M0 是流通中现金，流动性最强。", knowledgePoint: "货币层次流动性" },
+          { id: "p5-s6", type: "single", difficulty: "medium", question: "如果央行希望增加市场流动性，公开市场操作上通常会：", options: ["买入证券", "卖出证券", "提高准备金率", "冻结商业银行账户"], answer: ["A"], explanation: "买入证券会向市场投放资金，增加基础货币。", knowledgePoint: "公开市场操作" },
+          { id: "p5-s7", type: "single", difficulty: "medium", question: "下列属于宏观审慎管理重点关注的是：", options: ["系统性金融风险", "单个学生成绩", "企业广告文案", "普通商品包装"], answer: ["A"], explanation: "宏观审慎管理强调防范系统性金融风险和顺周期波动。", knowledgePoint: "宏观审慎管理" },
+          { id: "p5-s8", type: "single", difficulty: "medium", question: "行为监管主要关注：", options: ["金融机构市场行为和消费者保护", "只看机构牌照", "只看产品期限", "只监管财政收入"], answer: ["A"], explanation: "行为监管关注金融机构销售、信息披露、适当性管理和消费者保护等行为。", knowledgePoint: "金融监管理念：行为监管" },
+          { id: "p5-s9", type: "single", difficulty: "easy", question: "下列属于政府的银行职能的是：", options: ["代理国库", "发行公司股票", "经营普通超市", "制定企业工资"], answer: ["A"], explanation: "代理国库和管理政府存款是央行作为政府的银行的重要体现。", knowledgePoint: "中央银行职能：政府的银行" },
+          { id: "p5-s10", type: "single", difficulty: "medium", question: "LPR 的中文含义是：", options: ["贷款市场报价利率", "长期债券回购率", "地方财政支付率", "上市公司利润率"], answer: ["A"], explanation: "LPR 是贷款市场报价利率，是贷款定价的重要参考。", knowledgePoint: "利率：LPR" },
+          { id: "p5-m1", type: "multiple", difficulty: "easy", question: "金融市场分类中，常见分类维度包括：", options: ["融资期限", "发行和流通关系", "交易场所", "交割时间"], answer: ["A", "B", "C", "D"], explanation: "融资期限、发行流通、交易场所和交割时间都是常见分类维度。", knowledgePoint: "金融市场分类" },
+          { id: "p5-m2", type: "multiple", difficulty: "easy", question: "下列属于金融市场作用的有：", options: ["资源优化配置", "信息生产与传递", "金融风险分担", "宏观经济调节"], answer: ["A", "B", "C", "D"], explanation: "这些都是金融市场的基础功能和作用。", knowledgePoint: "金融市场作用" },
+          { id: "p5-m3", type: "multiple", difficulty: "medium", question: "下列属于中央银行资产业务的有：", options: ["再贷款", "再贴现", "证券买卖", "黄金外汇储备"], answer: ["A", "B", "C", "D"], explanation: "这些项目均体现央行资产或对外债权资产。", knowledgePoint: "中央银行资产业务" },
+          { id: "p5-m4", type: "multiple", difficulty: "easy", question: "货币供给层次表述正确的有：", options: ["M0 是流通中现金", "M1 = M0 + 活期存款", "M2 = M1 + 准货币", "M0 流动性最强"], answer: ["A", "B", "C", "D"], explanation: "四项均是货币层次的基础表述。", knowledgePoint: "货币供给层次" },
+          { id: "p5-m5", type: "multiple", difficulty: "medium", question: "关于古典货币数量论和马克思货币需求理论，下列说法正确的有：", options: ["都关注货币数量与商品交易或价格的关系", "马克思理论强调商品价格总额和货币流通速度", "古典数量论常用于解释货币数量与价格水平关系", "二者都只研究股票发行制度"], answer: ["A", "B", "C"], explanation: "二者都与货币数量、价格和流通有关，不是股票发行制度理论。", knowledgePoint: "货币需求理论" },
+          { id: "p5-m6", type: "multiple", difficulty: "medium", question: "下列属于结构性货币政策工具或定向支持工具的有：", options: ["支农再贷款", "支小再贷款", "碳减排支持工具", "科技创新再贷款"], answer: ["A", "B", "C", "D"], explanation: "四者均体现对特定领域或薄弱环节的支持。", knowledgePoint: "结构性货币政策工具" },
+          { id: "p5-m7", type: "multiple", difficulty: "medium", question: "下列关于政策搭配的说法正确的有：", options: ["衰退通缩适合双扩张", "过热通胀适合双紧缩", "滞胀并存可考虑财政扩张、货币紧缩", "任何情况下都必须双扩张"], answer: ["A", "B", "C"], explanation: "政策组合要根据经济增长和物价形势搭配，不能任何情况下都双扩张。", knowledgePoint: "财政政策与货币政策搭配" },
+          { id: "p5-m8", type: "multiple", difficulty: "easy", question: "我国金融监管格局中的主要主体包括：", options: ["中国人民银行", "国家金融监督管理总局", "中国证券监督管理委员会", "普通商业企业董事会"], answer: ["A", "B", "C"], explanation: "一行一局一会指中国人民银行、国家金融监督管理总局和中国证监会。", knowledgePoint: "金融监管格局" },
+          { id: "p5-m9", type: "multiple", difficulty: "medium", question: "宏观审慎管理通常关注：", options: ["系统性金融风险", "金融顺周期波动", "跨机构、跨市场风险传染", "单笔日常消费小票"], answer: ["A", "B", "C"], explanation: "宏观审慎管理从整体金融体系角度防范系统性风险。", knowledgePoint: "宏观审慎管理" },
+          { id: "p5-m10", type: "multiple", difficulty: "easy", question: "金融监管原则包括：", options: ["依法监管", "公平公正", "适度竞争", "协调监管"], answer: ["A", "B", "C", "D"], explanation: "依法、公平公正、适度竞争和协调监管都是重要监管原则。", knowledgePoint: "金融监管原则" },
+          { id: "p5-j1", type: "judge", difficulty: "easy", question: "票据市场属于货币市场。", options: ["正确", "错误"], answer: ["A"], explanation: "票据市场期限较短、流动性较强，属于货币市场。", knowledgePoint: "票据市场" },
+          { id: "p5-j2", type: "judge", difficulty: "easy", question: "场内市场与场外市场是按交易场所划分的。", options: ["正确", "错误"], answer: ["A"], explanation: "是否在集中交易场所进行是该分类的核心。", knowledgePoint: "场内市场与场外市场" },
+          { id: "p5-j3", type: "judge", difficulty: "easy", question: "北交所属于我国多层次资本市场的一部分。", options: ["正确", "错误"], answer: ["A"], explanation: "北交所服务创新型中小企业，是资本市场体系组成部分。", knowledgePoint: "北交所" },
+          { id: "p5-j4", type: "judge", difficulty: "easy", question: "央行持有黄金外汇储备属于负债业务。", options: ["正确", "错误"], answer: ["B"], explanation: "黄金外汇储备属于央行资产业务。", knowledgePoint: "中央银行资产业务" },
+          { id: "p5-j5", type: "judge", difficulty: "easy", question: "M1 的流动性通常强于 M2。", options: ["正确", "错误"], answer: ["A"], explanation: "货币层次越窄通常流动性越强，M1 强于 M2。", knowledgePoint: "货币层次流动性" },
+          { id: "p5-j6", type: "judge", difficulty: "medium", question: "凯恩斯货币需求理论不包括投机动机。", options: ["正确", "错误"], answer: ["B"], explanation: "凯恩斯理论包括交易动机、预防动机和投机动机。", knowledgePoint: "凯恩斯流动性偏好理论" },
+          { id: "p5-j7", type: "judge", difficulty: "easy", question: "提高再贴现率通常具有紧缩效果。", options: ["正确", "错误"], answer: ["A"], explanation: "再贴现率提高会增加商业银行融资成本，抑制信用扩张。", knowledgePoint: "再贴现政策" },
+          { id: "p5-j8", type: "judge", difficulty: "medium", question: "行为监管与消费者保护无关。", options: ["正确", "错误"], answer: ["B"], explanation: "行为监管的重要内容之一就是金融消费者保护。", knowledgePoint: "行为监管" },
+          { id: "p5-j9", type: "judge", difficulty: "medium", question: "宏观审慎管理强调从整个金融体系角度防范系统性风险。", options: ["正确", "错误"], answer: ["A"], explanation: "这是宏观审慎管理区别于单个机构微观监管的重要特点。", knowledgePoint: "宏观审慎管理" },
+          { id: "p5-j10", type: "judge", difficulty: "easy", question: "一行一局一会包括中国人民银行、国家金融监督管理总局和中国证监会。", options: ["正确", "错误"], answer: ["A"], explanation: "这正是当前我国金融监管格局的常见概括。", knowledgePoint: "金融监管格局" }
+        ],
+        subjective: [
+          { id: "p5-short1", type: "short", score: 5, question: "简述我国金融监管的主要原则。", answer: "金融监管应坚持依法监管、公平公正、合规监管、适度竞争、协调监管，并注意不干预金融机构正常经营。其目的在于维护金融秩序、保护金融消费者、防范金融风险并促进金融体系稳健运行。", scoringPoints: ["依法监管", "公平公正和合规", "适度竞争与协调", "不干预正常经营"], knowledgePoint: "金融监管原则" },
+          { id: "p5-essay1", type: "essay", score: 5, question: "论述金融市场的主要作用。", answer: "金融市场通过价格机制引导资金从盈余部门流向短缺部门，实现资源优化配置；通过交易价格和信息披露生产并传递信息；通过金融工具和交易安排实现风险分散和转移；通过利率、汇率、资产价格和融资条件变化影响投资、消费和宏观经济运行，因此也具有宏观经济调节作用。", scoringPoints: ["资源优化配置", "信息生产与传递", "金融风险分担", "宏观经济调节"], knowledgePoint: "金融市场作用" },
+          { id: "p5-calc1", type: "calculation", score: 5, question: "某人存入本金 30000 元，年利率 3%，期限 4 年。分别按单利和复利计算到期本利和，并比较两者差额。", answer: "单利本利和：\\(S=P(1+r\\times n)=30000\\times(1+3\\%\\times4)=33600\\) 元。\n复利本利和：\\(S=P(1+r)^n=30000\\times(1.03)^4\\approx33765.26\\) 元。\n差额：\\(33765.26-33600=165.26\\) 元。复利因为利息并入本金继续计息，所以本利和高于单利。", scoringPoints: ["单利本利和", "复利本利和", "差额", "解释复利更高原因"], knowledgePoint: "单利与复利计算" },
+          { id: "p5-analysis1", type: "analysis", score: 5, question: "材料：某时期金融机构加杠杆速度较快，资产价格上涨，跨市场资管产品嵌套增加。请结合金融监管和宏观审慎管理说明监管重点。", answer: "监管重点应包括：从宏观审慎角度关注系统性风险、顺周期加杠杆和跨市场风险传染；从穿透式监管角度识别资金真实流向、底层资产和最终风险承担者；从功能监管角度对相同实质业务适用一致监管标准；从行为监管角度加强信息披露、适当性管理和投资者保护；并通过持续监管跟踪风险变化。", scoringPoints: ["宏观审慎管理", "穿透式监管", "功能监管", "行为监管和持续监管"], knowledgePoint: "金融监管与宏观审慎管理" }
+        ]
+      }
+    ];
+
+    const papers = allPapers.slice(0, 3);
+
+    let appState = loadState();
+    let currentPaperIndex = Number(localStorage.getItem("financeQuestionBankCurrentPaper") || 0);
+    if (!papers[currentPaperIndex]) currentPaperIndex = 0;
+    let showWrongOnly = false;
+    let showAllExplanations = false;
+
+    const content = document.getElementById("content");
+    const paperSwitcher = document.getElementById("paperSwitcher");
+    const notice = document.getElementById("notice");
+
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(storageKey)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(storageKey, JSON.stringify(appState));
+      localStorage.setItem("financeQuestionBankCurrentPaper", String(currentPaperIndex));
+    }
+
+    function currentPaper() {
+      return papers[currentPaperIndex];
+    }
+
+    function paperAnswers() {
+      const id = currentPaper().id;
+      appState[id] ||= {};
+      return appState[id];
+    }
+
+    function objectiveQuestions() {
+      return currentPaper().questions;
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function formatText(value) {
+      return escapeHTML(value).replace(/\n/g, "<br>");
+    }
+
+    function sameAnswer(a, b) {
+      const left = [...a].sort();
+      const right = [...b].sort();
+      return left.length === right.length && left.every((item, index) => item === right[index]);
+    }
+
+    function getAnswerText(question) {
+      return question.answer
+        .map(letter => {
+          const index = letters.indexOf(letter);
+          const option = question.options[index] || "";
+          return `${letter}. ${option}`;
+        })
+        .join("；");
+    }
+
+    function questionTypeText(type) {
+      return { single: "单选", multiple: "多选", judge: "判断" }[type] || type;
+    }
+
+    function difficultyText(value) {
+      return value === "medium" ? "中等" : "基础";
+    }
+
+    function subjectiveTypeText(type) {
+      return { short: "简答", essay: "论述", calculation: "计算", analysis: "综合" }[type] || type;
+    }
+
+    function renderPaperSwitcher() {
+      paperSwitcher.innerHTML = papers.map((paper, index) => `
+        <button class="paper-tab ${index === currentPaperIndex ? "active" : ""}" type="button" data-paper-index="${index}">
+          <strong>${escapeHTML(paper.label)}：${escapeHTML(paper.title)}</strong>
+          <span>${escapeHTML(paper.description)}</span>
+        </button>
+      `).join("");
+    }
+
+    function render() {
+      renderPaperSwitcher();
+      const paper = currentPaper();
+      const answers = paperAnswers();
+      const groups = {
+        single: paper.questions.filter(q => q.type === "single"),
+        multiple: paper.questions.filter(q => q.type === "multiple"),
+        judge: paper.questions.filter(q => q.type === "judge")
+      };
+
+      const filtered = {};
+      Object.keys(groups).forEach(type => {
+        filtered[type] = groups[type].filter(question => {
+          const record = answers[question.id];
+          return !showWrongOnly || (record && record.checked && !record.correct);
+        });
+      });
+
+      const wrongCount = paper.questions.filter(q => answers[q.id]?.checked && !answers[q.id]?.correct).length;
+      const sections = [
+        renderObjectiveSection("single", "一、单项选择题", "每题 2 分，共 20 分", filtered.single, groups.single),
+        renderObjectiveSection("multiple", "二、多项选择题", "每题 2 分，共 20 分，少选、多选、错选均不得分", filtered.multiple, groups.multiple),
+        renderObjectiveSection("judge", "三、判断题", "每题 1 分，共 10 分", filtered.judge, groups.judge)
+      ];
+
+      const subjective = showWrongOnly
+        ? `<section class="section"><div class="empty">当前为“只看错题”模式，主观题暂不显示。当前错题数：${wrongCount}。</div></section>`
+        : renderSubjectiveSection(paper.subjective);
+
+      content.innerHTML = sections.join("") + subjective;
+      updateSummary();
+      renderNotice();
+      typesetMath();
+    }
+
+    function renderObjectiveSection(id, title, subtitle, questions, originalQuestions) {
+      const list = questions.length
+        ? questions.map((question, index) => renderQuestionCard(question, originalQuestions.indexOf(question) + 1)).join("")
+        : `<div class="empty">${showWrongOnly ? "这一部分暂时没有错题。" : "暂无题目。"}</div>`;
+
+      return `
+        <section class="section" id="${id}">
+          <div class="section-head">
+            <h2>${title}</h2>
+            <span>${subtitle}</span>
+          </div>
+          <div class="question-list">${list}</div>
+        </section>
+      `;
+    }
+
+    function renderQuestionCard(question, number) {
+      const answers = paperAnswers();
+      const record = answers[question.id] || { selected: [], checked: false, correct: false };
+      const showPanel = showAllExplanations || (record.checked && !record.correct);
+      const stateClass = record.checked ? (record.correct ? "correct" : "wrong") : "";
+      const feedback = record.checked
+        ? `<span class="feedback ${record.correct ? "ok" : "bad"}">${record.correct ? "回答正确" : "回答错误"}</span>`
+        : `<span class="feedback">选好后点击“检查本题”。</span>`;
+
+      return `
+        <article class="question-card ${stateClass}" data-question-id="${question.id}">
+          <div class="q-top">
+            <span class="q-no">${number}</span>
+            <p class="q-text">${formatText(question.question)}</p>
+            <span class="tag ${question.difficulty}">${questionTypeText(question.type)} · ${difficultyText(question.difficulty)}</span>
+          </div>
+          <div class="options">
+            ${question.options.map((option, index) => renderOption(question, record, option, index)).join("")}
+          </div>
+          <div class="q-actions">
+            <button class="btn primary" type="button" data-check="${question.id}">检查本题</button>
+            ${feedback}
+          </div>
+          <div class="answer-panel ${showPanel ? "show" : ""}">
+            <div><strong>正确答案：</strong>${formatText(getAnswerText(question))}</div>
+            <div><strong>解析：</strong>${formatText(question.explanation)}</div>
+            <div class="knowledge"><strong>对应知识点：</strong>${formatText(question.knowledgePoint)}</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderOption(question, record, option, index) {
+      const letter = letters[index];
+      const selected = record.selected?.includes(letter);
+      const checked = record.checked || showAllExplanations;
+      let cls = selected ? "selected" : "";
+
+      if (checked) {
+        if (selected && question.answer.includes(letter)) cls += " right";
+        if (selected && !question.answer.includes(letter)) cls += " bad";
+        if (!selected && record.checked && !record.correct && question.answer.includes(letter)) cls += " missed";
+        if (showAllExplanations && question.answer.includes(letter)) cls += " missed";
+      }
+
+      return `
+        <button class="option ${cls}" type="button" data-option="${letter}" data-question-id="${question.id}">
+          <span class="option-label">${letter}</span>
+          <span class="option-text">${formatText(option)}</span>
+        </button>
+      `;
+    }
+
+    function renderSubjectiveSection(subjectiveQuestions) {
+      return `
+        <section class="section" id="subjective">
+          <div class="section-head">
+            <h2>四、主观题</h2>
+            <span>约 20 分，不自动判分</span>
+          </div>
+          <div class="subjective-list">
+            ${subjectiveQuestions.map((question, index) => renderSubjectiveCard(question, index + 1)).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderSubjectiveCard(question, number) {
+      return `
+        <article class="question-card subjective-card" data-subjective-id="${question.id}">
+          <div class="q-top">
+            <span class="q-no">${number}</span>
+            <p class="q-text">${formatText(question.question)}</p>
+            <span class="tag medium">${subjectiveTypeText(question.type)} · ${question.score} 分</span>
+          </div>
+          <textarea placeholder="先写下自己的答案，再查看参考答案。"></textarea>
+          <div class="q-actions">
+            <button class="btn" type="button" data-toggle-answer="${question.id}">查看参考答案</button>
+            <span class="feedback">主观题建议按要点自评。</span>
+          </div>
+          <div class="answer-panel" id="answer-${question.id}">
+            <div><strong>参考答案：</strong>${formatText(question.answer)}</div>
+            <div class="scoring"><strong>评分要点：</strong>${question.scoringPoints.map(point => ` ${escapeHTML(point)}`).join("；")}</div>
+            <div class="knowledge"><strong>对应知识点：</strong>${formatText(question.knowledgePoint)}</div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderNotice() {
+      const answers = paperAnswers();
+      const questions = objectiveQuestions();
+      const checked = questions.filter(q => answers[q.id]?.checked).length;
+      const score = getObjectiveScore();
+      const max = getObjectiveMaxScore();
+
+      if (!checked) {
+        notice.classList.remove("show");
+        notice.textContent = "";
+        return;
+      }
+
+      notice.classList.add("show");
+      notice.textContent = `当前客观题得分：${score}/${max}。主观题约 20 分，请点击参考答案后按评分要点自评。`;
+    }
+
+    function getObjectiveScore() {
+      const answers = paperAnswers();
+      return objectiveQuestions().reduce((sum, question) => {
+        const record = answers[question.id];
+        return sum + (record?.checked && record.correct ? points[question.type] : 0);
+      }, 0);
+    }
+
+    function getObjectiveMaxScore() {
+      return objectiveQuestions().reduce((sum, question) => sum + points[question.type], 0);
+    }
+
+    function updateSummary() {
+      const answers = paperAnswers();
+      const questions = objectiveQuestions();
+      const checked = questions.filter(q => answers[q.id]?.checked).length;
+      const correct = questions.filter(q => answers[q.id]?.checked && answers[q.id]?.correct).length;
+      const score = getObjectiveScore();
+      const max = getObjectiveMaxScore();
+      const rate = checked ? Math.round((correct / checked) * 100) : 0;
+      const progress = Math.round((checked / questions.length) * 100);
+
+      document.getElementById("checkedMetric").textContent = `${checked}/${questions.length}`;
+      document.getElementById("scoreMetric").textContent = `${score}/${max}`;
+      document.getElementById("rateMetric").textContent = `${rate}%`;
+      document.getElementById("progressBar").style.width = `${progress}%`;
+      document.getElementById("wrongOnlyBtn").classList.toggle("active", showWrongOnly);
+      document.getElementById("showAllBtn").classList.toggle("active", showAllExplanations);
+      document.getElementById("wrongOnlyBtn").textContent = showWrongOnly ? "显示全部题" : "只看错题";
+      document.getElementById("showAllBtn").textContent = showAllExplanations ? "隐藏全部解析" : "显示全部解析";
+    }
+
+    function selectOption(questionId, letter) {
+      const question = objectiveQuestions().find(item => item.id === questionId);
+      if (!question) return;
+
+      const answers = paperAnswers();
+      const record = answers[questionId] || { selected: [], checked: false, correct: false };
+      let selected;
+
+      if (question.type === "multiple") {
+        selected = record.selected?.includes(letter)
+          ? record.selected.filter(item => item !== letter)
+          : [...(record.selected || []), letter];
+      } else {
+        selected = [letter];
+      }
+
+      answers[questionId] = { selected: selected.sort(), checked: false, correct: false };
+      saveState();
+      render();
+    }
+
+    function checkQuestion(questionId, allowEmpty = false) {
+      const question = objectiveQuestions().find(item => item.id === questionId);
+      if (!question) return false;
+
+      const answers = paperAnswers();
+      const record = answers[questionId] || { selected: [], checked: false, correct: false };
+      const selected = record.selected || [];
+
+      if (!allowEmpty && selected.length === 0) {
+        notice.classList.add("show");
+        notice.textContent = "请先选择本题答案，再点击检查。";
+        return false;
+      }
+
+      answers[questionId] = {
+        selected: selected.sort(),
+        checked: true,
+        correct: sameAnswer(selected, question.answer)
+      };
+      saveState();
+      return true;
+    }
+
+    function gradeAll() {
+      objectiveQuestions().forEach(question => checkQuestion(question.id, true));
+      showWrongOnly = false;
+      saveState();
+      render();
+      notice.classList.add("show");
+      notice.textContent = `已完成一键批改：客观题得分 ${getObjectiveScore()}/${getObjectiveMaxScore()}。主观题约 20 分，请按参考答案自评。`;
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function resetCurrentPaper() {
+      delete appState[currentPaper().id];
+      showWrongOnly = false;
+      showAllExplanations = false;
+      saveState();
+      render();
+      notice.classList.add("show");
+      notice.textContent = "已清空当前套卷作答记录，可以重新练习。";
+    }
+
+    function toggleSubjectiveAnswer(id) {
+      const panel = document.getElementById(`answer-${id}`);
+      const button = document.querySelector(`[data-toggle-answer="${id}"]`);
+      if (!panel || !button) return;
+      const shown = panel.classList.toggle("show");
+      button.textContent = shown ? "收起参考答案" : "查看参考答案";
+      typesetMath();
+    }
+
+    function typesetMath() {
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([content]).catch(() => {});
+      }
+    }
+
+    paperSwitcher.addEventListener("click", event => {
+      const button = event.target.closest("[data-paper-index]");
+      if (!button) return;
+      currentPaperIndex = Number(button.dataset.paperIndex);
+      showWrongOnly = false;
+      showAllExplanations = false;
+      saveState();
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    content.addEventListener("click", event => {
+      const option = event.target.closest("[data-option]");
+      if (option) {
+        selectOption(option.dataset.questionId, option.dataset.option);
+        return;
+      }
+
+      const checker = event.target.closest("[data-check]");
+      if (checker) {
+        const ok = checkQuestion(checker.dataset.check, false);
+        if (ok) render();
+        return;
+      }
+
+      const answerToggle = event.target.closest("[data-toggle-answer]");
+      if (answerToggle) {
+        toggleSubjectiveAnswer(answerToggle.dataset.toggleAnswer);
+      }
+    });
+
+    document.getElementById("gradeAllBtn").addEventListener("click", gradeAll);
+    document.getElementById("resetBtn").addEventListener("click", resetCurrentPaper);
+    document.getElementById("wrongOnlyBtn").addEventListener("click", () => {
+      showWrongOnly = !showWrongOnly;
+      render();
+    });
+    document.getElementById("showAllBtn").addEventListener("click", () => {
+      showAllExplanations = !showAllExplanations;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
