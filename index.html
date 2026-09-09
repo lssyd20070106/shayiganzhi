@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>房地产估价概论｜课堂汇报</title>
+<style>
+:root{
+ --ink:#24363f;--muted:#6f7e82;--paper:#fbfaf5;--mist:#dfeaf0;--water:#a8c7d6;
+ --sage:#becdbd;--lilac:#cbc5dc;--blush:#ead4cf;--butter:#eee2b8;--deep:#365b6a;
+ --line:rgba(54,91,106,.16);--glass:rgba(255,255,255,.72);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",Arial,sans-serif;
+background:
+radial-gradient(circle at 8% 8%,rgba(203,197,220,.42),transparent 28rem),
+radial-gradient(circle at 90% 14%,rgba(168,199,214,.34),transparent 30rem),
+radial-gradient(circle at 30% 76%,rgba(238,226,184,.28),transparent 28rem),
+linear-gradient(180deg,#fbfaf5,#f4f8f6 55%,#faf8f2);}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.4;
+background-image:linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px);background-size:38px 38px}
+main{width:min(1180px,calc(100% - 34px));margin:auto}
+.topbar{position:fixed;top:18px;left:50%;transform:translateX(-50%);width:min(1120px,calc(100% - 28px));height:58px;z-index:20;
+display:flex;align-items:center;justify-content:space-between;padding:0 18px;border:1px solid rgba(255,255,255,.76);background:rgba(251,250,245,.76);
+backdrop-filter:blur(18px);border-radius:18px;box-shadow:0 10px 30px rgba(35,55,65,.08)}
+.brand{display:flex;gap:10px;align-items:center;font-weight:700}.brand-dot{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,var(--water),var(--lilac))}
+.nav{display:flex;gap:4px}.nav a{text-decoration:none;color:var(--muted);font-size:13px;padding:9px 10px;border-radius:10px}.nav a:hover{background:white;color:var(--deep)}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--lilac),var(--water),var(--sage));z-index:30}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;padding:126px 0 72px}
+.kicker{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:clamp(48px,7vw,92px);line-height:.98;margin:18px 0 24px;letter-spacing:-.045em}
+.hero p{font-size:18px;line-height:1.85;color:var(--muted);max-width:690px}.hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.pill{border:1px solid var(--line);background:rgba(255,255,255,.64);padding:9px 12px;border-radius:999px;font-size:13px}
+.hero-art{height:590px;position:relative}.art{position:absolute;border-radius:32px;overflow:hidden;border:1px solid rgba(255,255,255,.82);box-shadow:0 24px 60px rgba(48,72,80,.12)}
+.a{inset:30px 0 80px 56px;background:linear-gradient(150deg,rgba(168,199,214,.92),rgba(203,197,220,.73) 45%,rgba(238,226,184,.7))}
+.b{width:58%;height:52%;left:0;bottom:10px;background:rgba(255,255,255,.58)}.c{width:44%;height:42%;right:-4px;top:0;background:rgba(255,255,255,.55)}
+.lily{position:absolute;border-radius:50%;opacity:.8}.l1{width:190px;height:80px;background:rgba(190,205,189,.74);left:70px;top:110px;transform:rotate(-10deg)}
+.l2{width:140px;height:58px;background:rgba(234,212,207,.9);right:35px;top:150px;transform:rotate(9deg)}.l3{width:240px;height:105px;background:rgba(238,226,184,.73);right:28px;bottom:105px;transform:rotate(-6deg)}
+.sketch{position:absolute;inset:0}.section{padding:90px 0}.section-head{display:grid;grid-template-columns:100px 1fr;gap:24px;margin-bottom:38px}
+.section-no{font-size:64px;line-height:.9;font-weight:800;color:rgba(54,91,106,.25);letter-spacing:-.05em}
+.section-title h2{font-size:clamp(31px,4.6vw,56px);margin:0;letter-spacing:-.035em}.section-title p{max-width:780px;line-height:1.8;color:var(--muted);margin:12px 0 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--glass);border:1px solid rgba(255,255,255,.84);border-radius:24px;padding:26px;box-shadow:0 14px 40px rgba(40,70,80,.075);backdrop-filter:blur(14px)}
+.card h3{font-size:20px;margin:0 0 10px}.card p{color:var(--muted);line-height:1.75;margin:0}.quote{font-size:26px;line-height:1.55;font-weight:700;letter-spacing:-.02em}
+.flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px}.node{background:white;border:1px solid var(--line);padding:14px 16px;border-radius:16px;display:flex;align-items:center;gap:10px;min-width:145px}.arrow{font-size:24px;color:#7b949e}
+.icon{width:24px;height:24px;stroke:var(--deep);stroke-width:1.8;fill:none}.icon-lg{width:34px;height:34px}
+.elements{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}.element{padding:16px;border-radius:18px;background:rgba(255,255,255,.58);border:1px solid var(--line);min-height:104px}.element b{display:block;margin-top:10px}.mini{font-size:12px;color:var(--muted)}
+.timeline{display:flex;align-items:center;margin-top:16px}.timeline div{flex:1;text-align:center;position:relative}.timeline div:before{content:"";position:absolute;top:13px;left:0;right:0;height:2px;background:var(--line)}
+.timeline div:first-child:before{left:50%}.timeline div:last-child:before{right:50%}.timeline i{position:relative;display:inline-block;width:28px;height:28px;border-radius:50%;background:white;border:7px solid var(--water);z-index:2}.timeline span{display:block;margin-top:8px;font-size:14px}
+.rules{display:grid;gap:10px}.rule{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.rule:last-child{border-bottom:0}.rule-num{font-weight:800;color:#91794c}
+.methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}.method{padding:18px;border-radius:16px;background:linear-gradient(145deg,rgba(223,234,240,.82),rgba(255,255,255,.76));text-align:center;font-weight:700}
+.metric{font-size:30px;font-weight:800;letter-spacing:-.04em}.deep-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.deep{min-height:210px;padding:20px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.62)}
+.deep:nth-child(1){background:linear-gradient(155deg,rgba(223,234,240,.82),rgba(255,255,255,.58))}.deep:nth-child(2){background:linear-gradient(155deg,rgba(190,205,189,.53),rgba(255,255,255,.58))}
+.deep:nth-child(3){background:linear-gradient(155deg,rgba(203,197,220,.56),rgba(255,255,255,.58))}.deep:nth-child(4){background:linear-gradient(155deg,rgba(238,226,184,.63),rgba(255,255,255,.58))}
+.deep:nth-child(5){background:linear-gradient(155deg,rgba(234,212,207,.65),rgba(255,255,255,.58))}.deep strong{font-size:34px;display:block;color:rgba(54,91,106,.55);margin-bottom:20px}
+.chart{padding:22px;border-radius:24px;background:rgba(255,255,255,.68);border:1px solid rgba(255,255,255,.86)}.chart-title{display:flex;justify-content:space-between;gap:20px;margin-bottom:14px}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.calc{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(255,255,255,.68);padding:15px 16px;border-radius:16px;margin-top:16px;line-height:1.75}
+.warning{margin-top:18px;border-left:4px solid #b97878;background:rgba(234,212,207,.39);padding:16px 18px;border-radius:0 14px 14px 0}
+.example{padding:30px;border-radius:28px;background:radial-gradient(circle at 90% 10%,rgba(234,212,207,.45),transparent 34%),linear-gradient(145deg,rgba(255,255,255,.83),rgba(223,234,240,.52));border:1px solid rgba(255,255,255,.86);box-shadow:0 24px 60px rgba(48,72,80,.11)}
+.example-flag{font-size:12px;letter-spacing:.16em;font-weight:800;color:#8b6f70}.table{width:100%;border-collapse:collapse;margin-top:16px}.table th,.table td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);font-size:14px}.table th{color:var(--muted)}
+.scenarios{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.scenario{min-height:150px;padding:18px;border-radius:20px;background:rgba(255,255,255,.63);border:1px solid var(--line)}.scenario .icon{margin-bottom:20px}
+.summary{display:grid;grid-template-columns:230px 1fr;gap:24px}.summary-core{border-radius:28px;background:linear-gradient(160deg,var(--deep),#75919b);color:white;padding:30px;display:flex;flex-direction:column;justify-content:space-between}
+.summary-rows{display:grid;gap:12px}.sum-row{display:grid;grid-template-columns:150px 1fr;gap:18px;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.66);border:1px solid var(--line)}.sum-row b{color:var(--deep)}
+footer{padding:70px 0 90px;color:var(--muted);font-size:13px}.reveal{opacity:0;transform:translateY(24px);transition:.75s cubic-bezier(.2,.8,.2,1)}.reveal.show{opacity:1;transform:none}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding-top:118px}.hero-art{height:420px}.grid2,.grid3{grid-template-columns:1fr}.elements{grid-template-columns:repeat(2,1fr)}.deep-grid{grid-template-columns:1fr 1fr}.scenarios{grid-template-columns:1fr 1fr}.summary{grid-template-columns:1fr}.nav{display:none}}
+@media(max-width:560px){.deep-grid,.scenarios,.methods,.elements{grid-template-columns:1fr}h1{font-size:48px}.hero-art{height:330px}.section-head{grid-template-columns:66px 1fr}.section-no{font-size:44px}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="topbar"><div class="brand"><span class="brand-dot"></span>房地产估价概论</div>
+<nav class="nav"><a href="#definition">定义</a><a href="#elements">要素</a><a href="#methods">方法</a><a href="#deeper">理解</a><a href="#example">案例</a><a href="#scenes">场景</a><a href="#summary">总结</a></nav></header>
+
+<svg width="0" height="0" style="position:absolute">
+<symbol id="building" viewBox="0 0 24 24"><path d="M4 21V4h10v17M14 8h6v13M8 8h2M8 12h2M8 16h2M17 12h1M17 16h1M2 21h20"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+<symbol id="doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM15 3v5h4M9 12h6M9 16h6"/></symbol>
+<symbol id="charti" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></symbol>
+<symbol id="scale" viewBox="0 0 24 24"><path d="M12 3v18M5 6h14M6 6l-4 7h8L6 6Zm12 0-4 7h8l-4-7ZM8 21h8"/></symbol>
+<symbol id="house" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v10h-6v-6H9v6H3z"/></symbol>
+<symbol id="coins" viewBox="0 0 24 24"><ellipse cx="8" cy="6" rx="5" ry="2.5"/><path d="M3 6v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V6M3 10v4c0 1.4 2.2 2.5 5 2.5 1.2 0 2.3-.2 3.1-.6"/><ellipse cx="16" cy="15" rx="5" ry="2.5"/><path d="M11 15v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/></symbol>
+<symbol id="gavel" viewBox="0 0 24 24"><path d="m14 5 5 5M12 7l5 5M4 20l8-8M3 21h8"/></symbol>
+<symbol id="shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.6 3 7.6 7 9 4-1.4 7-4.4 7-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+</svg>
+
+<main>
+<section class="hero">
+<div class="reveal"><div class="kicker">Chapter 01 · Real Estate Valuation</div><h1>房地产<br>估价概论</h1>
+<p>从“估一个价格”进入一套完整的专业判断体系：谁来估、为什么估、估什么、依据什么、在什么时间点估，以及最终如何形成专业意见。</p>
+<div class="hero-meta"><span class="pill">资产评估专业</span><span class="pill">课堂汇报</span><span class="pill">Monet Palette</span><span class="pill">数据可视化</span></div></div>
+<div class="hero-art reveal"><div class="art a"></div><div class="art b"></div><div class="art c"></div><div class="lily l1"></div><div class="lily l2"></div><div class="lily l3"></div>
+<svg class="sketch" viewBox="0 0 560 590"><path d="M80 510V260L170 215V510M170 510V145L280 105V510M280 510V230L390 170V510M390 510V300L480 250V510" fill="none" stroke="rgba(54,91,106,.45)" stroke-width="2"/><path d="M28 515C130 470 210 550 330 495S500 500 548 458" fill="none" stroke="rgba(255,255,255,.82)" stroke-width="5"/></svg>
+</div></section>
+
+<section class="section" id="definition"><div class="section-head reveal"><div class="section-no">01</div><div class="section-title"><h2>房地产估价是什么？</h2><p>专业估价不是“凭感觉报价格”，而是由机构和估价师在明确目的、对象与时点的前提下，进行分析、测算和判断，并提供专业意见。</p></div></div>
+<div class="grid2"><div class="card reveal"><div class="quote">“接受委托 → 选派估价师 → 分析、测算、判断 → 提供专业意见”</div>
+<div class="flow"><div class="node"><svg class="icon"><use href="#building"/></svg>估价机构</div><span class="arrow">→</span><div class="node"><svg class="icon"><use href="#doc"/></svg>接受委托</div><span class="arrow">→</span><div class="node"><svg class="icon"><use href="#user"/></svg>估价师</div><span class="arrow">→</span><div class="node"><svg class="icon"><use href="#charti"/></svg>专业判断</div></div></div>
+<div class="card reveal" style="background:linear-gradient(150deg,rgba(223,234,240,.8),rgba(255,255,255,.7))"><h3>汇报时这样理解</h3><p>房地产估价的核心不是“给一个数字”，而是解释这个数字为什么成立。报告必须回答：<b>谁委托、给谁用、评什么、按哪一天的市场状态、用什么方法、依据什么规范。</b></p></div></div></section>
+
+<section class="section" id="elements"><div class="section-head reveal"><div class="section-no">02</div><div class="section-title"><h2>完整估价体系由什么构成？</h2><p>课件将估价拆成一组相互关联的基本要素。把它们放在同一张系统图里，更容易理解估价为什么是一套专业流程。</p></div></div>
+<div class="card reveal"><div class="elements">
+<div class="element"><svg class="icon"><use href="#user"/></svg><b>估价当事人</b><span class="mini">机构 · 估价师 · 委托人</span></div>
+<div class="element"><svg class="icon"><use href="#doc"/></svg><b>估价目的</b><span class="mini">报告预期用途</span></div>
+<div class="element"><svg class="icon"><use href="#building"/></svg><b>估价对象</b><span class="mini">房地产估价的客体</span></div>
+<div class="element"><svg class="icon"><use href="#clock"/></svg><b>价值时点</b><span class="mini">过去 · 现在 · 将来</span></div>
+<div class="element"><svg class="icon"><use href="#scale"/></svg><b>价值类型</b><span class="mini">按任务确定</span></div>
+<div class="element"><svg class="icon"><use href="#shield"/></svg><b>估价原则</b><span class="mini">合法 · 替代 · 最佳利用等</span></div>
+<div class="element"><svg class="icon"><use href="#charti"/></svg><b>估价程序</b><span class="mini">完整工作链条</span></div>
+<div class="element"><svg class="icon"><use href="#doc"/></svg><b>估价依据</b><span class="mini">规范与资料</span></div>
+<div class="element"><svg class="icon"><use href="#doc"/></svg><b>估价假设</b><span class="mini">明确前提</span></div>
+<div class="element"><svg class="icon"><use href="#charti"/></svg><b>估价方法</b><span class="mini">比较 · 收益 · 成本等</span></div>
+<div class="element"><svg class="icon"><use href="#coins"/></svg><b>估价结果</b><span class="mini">最终专业意见</span></div>
+</div></div>
+<div class="grid2" style="margin-top:22px">
+<div class="card reveal"><h3>估价目的：先回答三个问题</h3><div class="grid3" style="margin-top:16px"><div class="metric">给谁看？</div><div class="metric">给谁用？</div><div class="metric">解决什么？</div></div><p style="margin-top:18px">课件进一步分为：给自己使用、给特定第三方使用、给不特定第三方使用。</p></div>
+<div class="card reveal"><h3>价值时点：同一套房，不同时间点可能是不同价值</h3><div class="timeline"><div><i></i><span>过去</span></div><div><i></i><span>现在</span></div><div><i></i><span>将来</span></div></div><p style="margin-top:20px">因此，估价结果必须和具体时间点绑定，不能脱离市场环境单独讨论。</p></div>
+</div></section>
+
+<section class="section" id="methods"><div class="section-head reveal"><div class="section-no">03</div><div class="section-title"><h2>依据什么估？用什么方法估？</h2><p>估价不是自由发挥。课件列出的基本原则、规范以及市场/收益/成本三条路径，共同构成估价判断的专业边界。</p></div></div>
+<div class="grid2"><div class="card reveal"><h3>估价原则</h3><div class="rules">
+<div class="rule"><span class="rule-num">01</span><div><b>独立、客观、公正原则</b><div class="mini">专业判断不因委托关系而改变</div></div></div>
+<div class="rule"><span class="rule-num">02</span><div><b>合法原则</b><div class="mini">估价结论不能脱离合法条件</div></div></div>
+<div class="rule"><span class="rule-num">03</span><div><b>价值时点原则</b><div class="mini">价值对应明确时间点</div></div></div>
+<div class="rule"><span class="rule-num">04</span><div><b>替代原则</b><div class="mini">市场会比较相近替代选择</div></div></div>
+<div class="rule"><span class="rule-num">05</span><div><b>最高最佳利用原则</b><div class="mini">从合理、合法与有效利用角度判断</div></div></div>
+</div></div>
+<div class="card reveal"><h3>三条估价路径</h3><div class="methods"><div class="method">市场路径</div><div class="method">收益路径</div><div class="method">成本路径</div></div>
+<p>课件列出的常见方法包括：<b>成本法、收益法、比较法、假设开发法</b>。汇报时要注意，“估价路径”和“具体方法”不是同一个层级。</p><div class="warning"><b>估价依据：</b>课件同时强调房地产估价具有规矩和标准，并提到房地产估价规范。</div></div></div></section>
+
+<section class="section" id="deeper"><div class="section-head reveal"><div class="section-no">04</div><div class="section-title"><h2>为什么估价不是“算价格”？</h2><p>价值与价格、模拟市场、科学与艺术、专业标准、误差与非保证性，共同解释了房地产估价的本质。</p></div></div>
+<div class="deep-grid">
+<div class="deep reveal"><strong>01</strong><h3>价值评估</h3><p>价格会变化，价值相对稳定；价格围绕价值上下波动。</p></div>
+<div class="deep reveal"><strong>02</strong><h3>模拟市场</h3><p>估价应模拟市场进行估价。</p></div>
+<div class="deep reveal"><strong>03</strong><h3>科学 × 艺术</h3><p>既依赖规范、数据与模型，也包含专业判断。</p></div>
+<div class="deep reveal"><strong>04</strong><h3>规矩与标准</h3><p>估价活动具有程序、依据与专业边界。</p></div>
+<div class="deep reveal"><strong>05</strong><h3>存在误差</h3><p>课件指出高难度评估业务误差甚至可能放宽至 ±20%。</p></div>
+</div>
+<div class="grid2" style="margin-top:22px">
+<div class="chart reveal"><div class="chart-title"><div><h3 style="margin:0">价格围绕价值上下波动</h3><div class="mini">概念示意图，不代表真实市场数据</div></div><div class="legend"><span><i class="dot" style="background:#557f94"></i>价格</span><span><i class="dot" style="background:#c4a769"></i>价值</span></div></div>
+<svg viewBox="0 0 650 310" width="100%"><line x1="55" y1="260" x2="620" y2="260" stroke="rgba(54,91,106,.32)" stroke-width="2"/><line x1="55" y1="28" x2="55" y2="260" stroke="rgba(54,91,106,.32)" stroke-width="2"/>
+<line x1="55" y1="145" x2="620" y2="145" stroke="#c4a769" stroke-width="3" stroke-dasharray="9 8"/><path d="M55 198C105 55 150 245 205 122S305 215 360 102S460 208 510 126S585 150 620 85" fill="none" stroke="#557f94" stroke-width="5" stroke-linecap="round"/>
+<text x="554" y="132" fill="#967c43" font-size="14">价值（相对稳定）</text><text x="530" y="73" fill="#365b6a" font-size="14">价格（持续波动）</text><text x="594" y="286" fill="#6f7e82" font-size="13">时间</text><text x="16" y="44" fill="#6f7e82" font-size="13">金额</text></svg></div>
+<div class="card reveal"><h3>±20% 到底意味着什么？</h3><p>按课件“高难度业务甚至可能放宽至 ±20%”做一个纯数学演示：</p><div class="calc">假设中心估值 = 200 万元<br>下限 = 200 × (1 - 20%) = 160 万元<br>上限 = 200 × (1 + 20%) = 240 万元</div>
+<div class="warning">这不是说所有估价都允许 ±20%，只是帮助理解“估价存在误差、难度越高不确定性可能越大”。</div></div></div></section>
+
+<section class="section" id="example"><div class="section-head reveal"><div class="section-no">05</div><div class="section-title"><h2>课堂示例：同一套房，三种思路会得到什么？</h2><p>以下数字是为汇报演示构造的<b>虚拟案例</b>，不是教材原始数据，也不代表真实市场价格。</p></div></div>
+<div class="example reveal"><div class="example-flag">ILLUSTRATIVE DATA · 虚拟课堂数据</div><div class="grid2" style="margin-top:16px">
+<div><h3 style="font-size:26px;margin:0 0 8px">案例对象</h3><p style="color:var(--muted);line-height:1.8">某城市普通住宅，建筑面积 <b>100㎡</b>。假设可比成交单价为 1.89、1.95、2.10 万元/㎡；年净租金约 8 万元；资本化率假设为 4.2%。</p>
+<table class="table"><thead><tr><th>方法</th><th>示例计算</th><th>估值结果</th></tr></thead><tbody><tr><td>比较思路</td><td>约 1.98 万元/㎡ × 100㎡</td><td><b>198 万</b></td></tr><tr><td>收益思路</td><td>8 万 ÷ 4.2%</td><td><b>约 190 万</b></td></tr><tr><td>成本思路</td><td>土地 + 建造 + 相关成本（演示假设）</td><td><b>205 万</b></td></tr></tbody></table></div>
+<div class="chart" style="background:rgba(255,255,255,.58)"><h3 style="margin-top:0">三种思路的示例结果（万元）</h3>
+<svg viewBox="0 0 560 320" width="100%"><line x1="70" y1="265" x2="530" y2="265" stroke="rgba(54,91,106,.28)" stroke-width="2"/>
+<rect x="110" y="82" width="78" height="183" rx="12" fill="#a8c7d6"/><rect x="242" y="114" width="78" height="151" rx="12" fill="#becdbd"/><rect x="374" y="55" width="78" height="210" rx="12" fill="#cbc5dc"/>
+<text x="149" y="72" text-anchor="middle" font-size="18" fill="#365b6a" font-weight="700">198</text><text x="281" y="104" text-anchor="middle" font-size="18" fill="#365b6a" font-weight="700">190</text><text x="413" y="45" text-anchor="middle" font-size="18" fill="#365b6a" font-weight="700">205</text>
+<text x="149" y="292" text-anchor="middle" font-size="14" fill="#6f7e82">比较</text><text x="281" y="292" text-anchor="middle" font-size="14" fill="#6f7e82">收益</text><text x="413" y="292" text-anchor="middle" font-size="14" fill="#6f7e82">成本</text></svg></div></div>
+<div class="calc">若仅为演示，假设权重：比较 50% + 收益 30% + 成本 20%<br>综合示例 = 198×50% + 190×30% + 205×20% = <b>197 万元</b></div>
+<div class="warning"><b>汇报关键句：</b>“不同方法从市场、收益、成本不同角度观察同一个价值问题，最终形成专业判断。”</div></div></section>
+
+<section class="section" id="scenes"><div class="section-head reveal"><div class="section-no">06</div><div class="section-title"><h2>什么时候需要房地产估价？</h2><p>估价的价值不只存在于买卖。课件列出的需求覆盖交易、融资、征收、税收、司法和损害赔偿等多个环节。</p></div></div>
+<div class="scenarios">
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#house"/></svg><h3>房地产转让</h3><p>交易价值判断。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#doc"/></svg><h3>房地产租赁</h3><p>租赁价值参考。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#coins"/></svg><h3>房地产抵押</h3><p>融资与担保。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#building"/></svg><h3>征收和征用</h3><p>补偿价值判断。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#coins"/></svg><h3>房地产税收</h3><p>涉税价值基础。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#gavel"/></svg><h3>司法处置</h3><p>司法价值参考。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#scale"/></svg><h3>房地产分割</h3><p>权益分割。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#shield"/></svg><h3>损害赔偿</h3><p>损失价值判断。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#building"/></svg><h3>土地制度改革</h3><p>制度调整需求。</p></div>
+<div class="scenario reveal"><svg class="icon icon-lg"><use href="#charti"/></svg><h3>其他需要</h3><p>更多专业场景。</p></div>
+</div></section>
+
+<section class="section" id="summary"><div class="section-head reveal"><div class="section-no">07</div><div class="section-title"><h2>最后只记住四个问题</h2><p>收尾不再重复所有文字，把这一章压缩成四个问题，听众就能带走完整框架。</p></div></div>
+<div class="summary reveal"><div class="summary-core"><div><div class="kicker" style="color:rgba(255,255,255,.65)">Knowledge Framework</div><h3 style="font-size:34px;margin:14px 0">房地产<br>估价概论</h3></div><div style="font-size:13px;color:rgba(255,255,255,.72)">专业评估 · 服务社会 · 理解价值</div></div>
+<div class="summary-rows"><div class="sum-row"><b>是什么？</b><span>专业机构接受委托，由估价师分析、测算、判断并提供专业意见。</span></div><div class="sum-row"><b>由什么构成？</b><span>当事人、目的、对象、价值时点、原则、程序、依据、假设、方法和结果。</span></div><div class="sum-row"><b>怎么理解？</b><span>价值评估、模拟市场、科学与艺术结合、遵循标准、承认误差、不做价格实现保证。</span></div><div class="sum-row"><b>什么时候用？</b><span>转让、租赁、抵押、征收、税收、司法、分割、损害赔偿、制度改革等。</span></div></div></div></section>
+
+<footer><div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap"><span>第一章｜房地产估价概论</span><span>课堂演示案例中的数字均为虚构示例；概念知识点依据用户提供课件整理。</span></div></footer>
+</main>
+<script>
+const rs=[...document.querySelectorAll('.reveal')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('show')}),{threshold:.12});
+rs.forEach(x=>io.observe(x));
+const p=document.getElementById('progress');
+window.addEventListener('scroll',()=>{const d=document.documentElement;const m=d.scrollHeight-d.clientHeight;p.style.width=((d.scrollTop/m)*100)+'%'});
+</script>
+</body></html>
